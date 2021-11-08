@@ -19,7 +19,7 @@ class _HabitsScreen extends State<HabitsScreen>{
     return SafeArea(
       top: false,
         child: Scaffold(
-      appBar: rawAppBar('home'),
+      appBar: rawAppBar('home',false),
       floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
           child: RawButton('add a new habit', (){})
