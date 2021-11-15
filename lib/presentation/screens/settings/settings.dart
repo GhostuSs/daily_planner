@@ -20,7 +20,7 @@ class _SettingsScreen extends State<SettingsScreen>{
       top: false,
         child: Scaffold(
       backgroundColor: textWhite,
-      appBar: rawAppBar('settings',false),
+      appBar: RawAppBar(title: 'settings',addBtn: false),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 40),
         decoration: const BoxDecoration(

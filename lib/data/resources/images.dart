@@ -15,7 +15,7 @@ abstract class AppImages{
 }
 
 abstract class HabitsImages{
-  static const String brush = 'assets/icons/brush&floss.png';
+  static const String brush = 'assets/icons/brush.png';
   static const String drinkWater = 'assets/icons/drinkwater.png';
   static const String eatFruits = 'assets/icons/eatfruits.png';
   static const String excersize = 'assets/icons/excersize.png';

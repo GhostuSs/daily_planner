@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleep_sound/routes.dart';
 
 import 'data/data.dart';
+import 'data/list_habits.dart';
 import 'data/resources/color_palette.dart';
 
 
@@ -32,7 +33,8 @@ class _App extends State<App>{
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<Data>(create: (_) => Data())
+          Provider<Data>(create: (_) => Data()),
+          Provider<ListHabits>(create: (_) => ListHabits())
         ],
         child: MaterialApp(
             theme: ThemeData.dark(),
