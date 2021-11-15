@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/data/resources/images.dart';
@@ -25,7 +26,52 @@ class HabitsScreen extends StatefulWidget {
 }
 
 class _HabitsScreen extends State<HabitsScreen> {
-  List data = [1];
+  List data = [
+    Data(habit: 'excersize', tag: 'wakeup', date: DateTime.now()),
+    Data(habit: 'excersize', tag: 'morning', date: DateTime.now()),
+    Data(habit: 'read', tag: 'wakeup', date: DateTime.now())
+  ];
+  List wakeUp = [];
+  List morning = [];
+  List noon = [];
+  List evening = [];
+  List beforeSleep = [];
+  @override
+  initState() {
+    isSelected[0]=true;
+    print(data.length);
+    for (int i = 0; i < data.length; i++) {
+      switch (data[i].tag) {
+        case 'wakeup':
+          {
+            wakeUp.add(data[i]);
+            break;
+          }
+        case 'morning':
+          {
+            morning.add(data[i]);
+            break;
+          }
+        case 'noon':
+          {
+            noon.add(data[i]);
+            break;
+          }
+        case 'evening':
+          {
+            evening.add(data[i]);
+            break;
+          }
+        case 'beforesleep':
+          {
+            beforeSleep.add(data[i]);
+            break;
+          }
+      }
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,51 +128,91 @@ class _HabitsScreen extends State<HabitsScreen> {
                   ),
                   const SizedBox(height: 20),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 1,
-                      itemBuilder: (BuildContext context, int index)=>
+                    child: ListView(
+                      children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            child: Text(
-                                'Wake up',
-                                style: _textStyle
+                          children: [
+                            Visibility(
+                                visible: wakeUp.isNotEmpty&&(isSelected[0]||isSelected[1]),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 5),
+                                      child: Text('Wake up',
+                                          style: _textStyle),
+                                    ),
+                                    for(int i=0;i<wakeUp.length;i++)RawCardStat(habit: wakeUp[i].habit)
+                                  ],
+                                )),
+                            Visibility(
+                              visible: morning.isNotEmpty&&(isSelected[0]||isSelected[2]),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 5),
+                                    child:
+                                    Text('Morning', style: _textStyle),
+                                  ),
+                                  for(int i=0;i<morning.length;i++)RawCardStat(habit: morning[i].habit)
+                                ],
+                              ),
                             ),
-                          ),
-                          const RawCardStat(habit: 'excersize'),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            child: Text(
-                                'Morning',
-                                style: _textStyle
+                            Visibility(
+                              visible: noon.isNotEmpty&&(isSelected[0]||isSelected[3]),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 5),
+                                    child: Text('Noon', style: _textStyle),
+                                  ),
+                                  for(int i=0;i<noon.length;i++)RawCardStat(habit: noon[i].habit)
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            child: Text(
-                                'Noon',
-                                style: _textStyle
+                            Visibility(
+                              visible: evening.isNotEmpty&&(isSelected[0]||isSelected[4]),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 5),
+                                    child:
+                                    Text('Evening', style: _textStyle),
+                                  ),
+                                  for(int i=0;i<evening.length;i++)RawCardStat(habit: evening[i].habit)
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            child: Text(
-                                'Evening',
-                                style: _textStyle
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                            child: Text(
-                                'Before sleep',
-                                style: _textStyle
-                            ),
-                          ),
+                            Visibility(
+                                visible: beforeSleep.isNotEmpty&&(isSelected[0]||isSelected[5]),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 5),
+                                      child: Text('Before sleep',
+                                          style: _textStyle),
+                                    ),
+                                    for(int i=0;i<beforeSleep.length;i++)RawCardStat(habit: beforeSleep[i].habit)
+                                  ],
+                                )),
+                          ],
+                        )
                       ],
-                    )
-
                     ),
                   )
                 ],
@@ -138,12 +224,12 @@ class _HabitsScreen extends State<HabitsScreen> {
       ),
     );
   }
-  final TextStyle _textStyle=const TextStyle(
+
+  final TextStyle _textStyle = const TextStyle(
       color: Colors.white,
       fontSize: 24,
       fontFamily: 'JoseFinSans-Light',
-      fontWeight: FontWeight.w400
-  );
+      fontWeight: FontWeight.w400);
 }
 
 class EmptyDataWidget extends StatelessWidget {
@@ -169,45 +255,44 @@ class EmptyDataWidget extends StatelessWidget {
       ],
     );
   }
-
 }
 
-class RawCardStat extends StatelessWidget{
+class RawCardStat extends StatelessWidget {
   final String habit;
 
   const RawCardStat({Key? key, required this.habit}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    const String path='assets/icons/';
-    return ListTile(
-      leading: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: const Color(0xCC210741).withOpacity(0.8),
-            borderRadius: BorderRadius.circular(52)
+    const String path = 'assets/icons/';
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: const Color(0xCC210741).withOpacity(0.8),
+              borderRadius: BorderRadius.circular(52)),
+          child: Image.asset(
+            path + habit + '.png',
+            filterQuality: FilterQuality.high,
+          ),
         ),
-        child: Image.asset(
-          path+habit+'.png',
-          filterQuality: FilterQuality.high,
+        trailing: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              '0 days/m',
+              style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w300,
+                  fontFamily: 'JosefinSans-Thin',
+                  color: Colors.white.withOpacity(0.5),
+                  letterSpacing: -0.3),
+            )
+          ],
         ),
-      ),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            '0 days/m',
-            style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.w300,
-                fontFamily: 'JosefinSans-Thin',
-                color: Colors.white.withOpacity(0.5),
-                letterSpacing: -0.3
-            ),
-          )
-        ],
       ),
     );
   }
-
 }

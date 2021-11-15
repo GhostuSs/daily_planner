@@ -1,8 +1,8 @@
 class Data{
-  String? habit='wakeup';
-  String? tag='morning';
-  DateTime? date=DateTime.now();
-  Data();
+  String? habit;
+  String? tag;
+  DateTime? date;
+  Data({this.habit,this.tag,this.date});
 
   removeData(){
     habit='';
