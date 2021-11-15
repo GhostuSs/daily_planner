@@ -67,6 +67,7 @@ flutter:
     - assets/icons/
     - assets/icons/2x/
     - assets/icons/3x/
+    - assets/icons/brush.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

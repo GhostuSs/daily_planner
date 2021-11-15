@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
@@ -21,13 +22,49 @@ class _TodayScreen extends State<TodayScreen>{
   String month='';
   int daysInMonth=0;
   int today=0;
-  List<Widget> wakeUp =[const HabitCard(habit: 'excersize',)];
-  List morning=[1];
-  List noon = [1];
-  List evening=[1];
+  List<bool> selectedDate=List.generate(5, (index) => false);
+  List data=[
+    Data(habit: 'fallasleepearly',tag: 'evening',date: DateTime.now())
+  ];
+  List wakeUp =[];
+  List morning=[];
+  List noon = [];
+  List evening=[];
+  List beforeSleep=[];
 
   @override
-  initState(){
+  initState() {
+    print(DateTime.now());
+    print(data.length);
+    for (int i = 0; i < data.length; i++) {
+      switch (data[i].tag) {
+        case 'wakeup':
+          {
+            wakeUp.add(data[i]);
+            break;
+          }
+        case 'morning':
+          {
+            morning.add(data[i]);
+            break;
+          }
+        case 'noon':
+          {
+            noon.add(data[i]);
+            break;
+          }
+        case 'evening':
+          {
+            evening.add(data[i]);
+            break;
+          }
+        case 'beforesleep':
+          {
+            beforeSleep.add(data[i]);
+            break;
+          }
+      }
+    }
     DateTime dateTime = DateTime.now();
     today=dateTime.day;
     switch(dateTime.month){
@@ -97,7 +134,6 @@ class _TodayScreen extends State<TodayScreen>{
 
   @override
   Widget build(BuildContext context){
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: RawAppBar(
           title:'today',
@@ -107,14 +143,15 @@ class _TodayScreen extends State<TodayScreen>{
           decoration: const BoxDecoration(
               gradient: customGradient
           ),
-          child:  Column(
+          child:  data.isNotEmpty
+        ? Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Stack(
                   children: [
                     Container(
-                      width: width*0.65,
+                      width: MediaQuery.of(context).size.width*0.65,
                       decoration: BoxDecoration(
                           color: const Color(0xCC210741).withOpacity(0.4),
                           borderRadius: BorderRadius.circular(16)
@@ -130,7 +167,7 @@ class _TodayScreen extends State<TodayScreen>{
                       alignment: Alignment.centerRight,
                       child: Container(
                         height: 46,
-                        width: width*0.2,
+                        width: MediaQuery.of(context).size.width*0.2,
                         child: RawButton('OK', (){}),
                       ),
                     )
@@ -185,89 +222,120 @@ class _TodayScreen extends State<TodayScreen>{
                   ),
                 ),
               ),
-              Visibility(
-                visible: wakeUp.isNotEmpty,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                child: ListView(
                   children: [
-                    Row(
-                        children: [
-                          const SizedBox(width: 15),
-                          Text(
-                              'Wake up',
-                              style: _textStyle
-                          )
-                        ]
-                    ),
-                    for(int i=0;i<wakeUp.length;i++)wakeUp[i]
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: morning.isNotEmpty,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                        children: [
-                          const SizedBox(width: 15),
-                          Text(
-                              'Morning',
-                              style: _textStyle
-                          )
-                        ]
-                    )
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: noon.isNotEmpty,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                        children: [
-                          const SizedBox(width: 15),
-                          Text(
-                              'Noon',
-                              style: _textStyle
-                          )
-                        ]
-                    )
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: evening.isNotEmpty,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(width: 15),
-                        Text(
-                          'Evening',
-                          style: _textStyle
-                            )
-                      ]
+                        Visibility(
+                            visible: wakeUp.isNotEmpty,
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                RawTitle(
+                                    onTap: _onTap,
+                                    label: 'Wake up',
+                                    textStyle: _textStyle
+                                ),
+                                Wrap(
+                                  children: [
+                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit)
+                                  ],
+                                )
+                              ],
+                            )),
+                        Visibility(
+                          visible: morning.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              RawTitle(label: 'Morning', onTap: _onTap, textStyle: _textStyle),
+                              Wrap(
+                                children: [
+                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit)
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: noon.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              RawTitle(
+                                textStyle: _textStyle,
+                                label: 'Noon',
+                                onTap: _onTap,
+
+                              ),
+                              Wrap(
+                                children: [
+                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit)
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: evening.isNotEmpty,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              RawTitle(
+                                onTap: _onTap,
+                                textStyle: _textStyle,
+                                label: 'Evening',
+
+                              ),
+                              Wrap(
+                                children: [
+                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit)
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                            visible: beforeSleep.isNotEmpty,
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                RawTitle(
+                                  onTap: _onTap,
+                                  textStyle: _textStyle,
+                                  label: 'Before sleep'),
+                                Wrap(
+                                  children: [
+                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit)
+                                  ],
+                                )
+                              ],
+                            )),
+                      ],
                     )
                   ],
                 ),
               )
             ],
-          ),
+          )
+        : Text('is empty'),
         ),
     );
   }
+  _onTap()=>Navigator.pushNamed(context, '/');
   final TextStyle _textStyle=const TextStyle(
     color: Colors.white,
     fontSize: 24,
     fontFamily: 'JoseFinSans-Light',
-    fontWeight: FontWeight.w400
+    fontWeight: FontWeight.w400,
+    letterSpacing: -0.3
   );
 
   String textDay(int index){
@@ -296,4 +364,20 @@ class _TodayScreen extends State<TodayScreen>{
     }
     return temp;
   }
+}
+
+class RawTitle extends StatelessWidget{
+  final String label;
+  final onTap;
+  final TextStyle textStyle;
+  const RawTitle({required this.label, required this.onTap,required this.textStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+      child: Text(label, style: textStyle)
+    );
+  }
+
 }

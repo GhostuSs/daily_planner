@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
@@ -6,6 +7,8 @@ import 'package:sleep_sound/data/resources/images.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/buttons/raw_buttons.dart';
 import 'package:sleep_sound/presentation/components/filters/filter.dart';
+
+import 'add_habit.dart';
 
 List<String> tags = [
   'View all',
@@ -78,7 +81,7 @@ class _HabitsScreen extends State<HabitsScreen> {
       appBar: RawAppBar(title: 'home', addBtn: false),
       floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
-          child: RawButton('add a new habit', () {})),
+          child: RawButton('add a new habit', ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: AddHabitScreen(),)))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Container(
         width: double.infinity,

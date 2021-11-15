@@ -46,7 +46,13 @@ class RawTextFieldState extends State<RawTextField> {
           ),
           hintText: widget._hint,
           contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-          hintStyle: TextStyle(color: textWhite.withOpacity(0.3)),
+          hintStyle: TextStyle(
+              color: textWhite.withOpacity(0.3),
+            fontFamily: 'JosefinSans-Thin',
+            fontWeight: FontWeight.w200,
+            fontSize: 16.0,
+            letterSpacing: -0.3
+          ),
           border: const OutlineInputBorder(
             borderSide: BorderSide.none
           )),
