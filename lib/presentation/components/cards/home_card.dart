@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
+import 'package:sleep_sound/presentation/screens/home/description.dart';
 
 class HomeCard extends StatelessWidget {
   final String habit;
@@ -11,7 +12,7 @@ class HomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     const String path = 'assets/icons/';
     return InkWell(
-      onTap: (){},
+      onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: DescriptionScreen(title: habit))),
       splashColor: darkPink,
       highlightColor: darkPink,
       child: Container(

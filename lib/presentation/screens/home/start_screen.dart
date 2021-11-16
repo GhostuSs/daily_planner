@@ -20,7 +20,6 @@ List<String> tags = [
   'Evening',
   'Before sleep',
 ];
-List<bool> isSelected = List.generate(tags.length, (index) => false);
 
 class HabitsScreen extends StatefulWidget {
   const HabitsScreen({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class HabitsScreen extends StatefulWidget {
 
 class _HabitsScreen extends State<HabitsScreen> {
   List data = [];
-
+  List<bool> isSelected = List.generate(tags.length, (index) => false);
   @override
   initState() {
     isSelected[0] = true;
@@ -110,69 +109,35 @@ class _HabitsScreen extends State<HabitsScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Visibility(
-                                visible: data.isNotEmpty &&
-                                    (isSelected[0] || isSelected[1]),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const PartOfDayLabel(label: 'Wake up'),
-                                    for (int i = 0; i < data.length; i++)
-                                      if (data[i].tag == 'wakeup')
-                                        HomeCard(habit: data[i].habit)
-                                  ],
-                                )),
-                            Visibility(
-                              visible: data.isNotEmpty &&
-                                  (isSelected[0] || isSelected[2]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const PartOfDayLabel(label: 'Morning'),
-                                  for (int i = 0; i < data.length; i++)
-                                    if (data[i].tag == 'morning')
-                                      HomeCard(habit: data[i].habit)
-                                ],
-                              ),
+                            PointColumn(
+                                data: data,
+                                isSelected: isSelected,
+                                searchTag: 'wakeup',
+                                isSelectedIndex:1
                             ),
-                            Visibility(
-                              visible: data.isNotEmpty &&
-                                  (isSelected[0] || isSelected[3]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const PartOfDayLabel(label: 'Noon'),
-                                  for (int i = 0; i < data.length; i++)
-                                    if (data[i].tag == 'noon')
-                                      HomeCard(habit: data[i].habit)
-                                ],
-                              ),
+                            PointColumn(
+                                data: data,
+                                isSelected: isSelected,
+                                searchTag: 'morning',
+                                isSelectedIndex:2
                             ),
-                            Visibility(
-                              visible: data.isNotEmpty &&
-                                  (isSelected[0] || isSelected[4]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const PartOfDayLabel(label: 'Evening'),
-                                  for (int i = 0; i < data.length; i++)
-                                    if (data[i].tag == 'evening')
-                                      HomeCard(habit: data[i].habit)
-                                ],
-                              ),
+                            PointColumn(
+                                data: data,
+                                isSelected: isSelected,
+                                searchTag: 'noon',
+                                isSelectedIndex:3
                             ),
-                            Visibility(
-                                visible: data.isNotEmpty &&
-                                    (isSelected[0] || isSelected[5]),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const PartOfDayLabel(label: 'Before sleep'),
-                                    for (int i = 0; i < data.length; i++)
-                                      if (data[i].tag == 'beforesleep')
-                                        HomeCard(habit: data[i].habit)
-                                  ],
-                                )),
+                            PointColumn(
+                                data: data,
+                                isSelected: isSelected,
+                                searchTag: 'evening',
+                                isSelectedIndex:4
+                            ),
+                            PointColumn(
+                              data: data,
+                            isSelected: isSelected,
+                            searchTag: 'beforesleep',
+                            isSelectedIndex:5),
                           ],
                         )
                       ],
@@ -186,5 +151,63 @@ class _HabitsScreen extends State<HabitsScreen> {
               ),
       ),
     );
+  }
+}
+
+class PointColumn extends StatelessWidget{
+  final List data;
+  final String searchTag;
+  final List<bool> isSelected;
+  final int isSelectedIndex;
+  const PointColumn({Key? key, required this.data,required this.isSelected, required this.searchTag, required this.isSelectedIndex}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+        visible: data.isNotEmpty &&
+            (isSelected[0] || isSelected[isSelectedIndex])&&checkContaining(data, searchTag),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PartOfDayLabel(label: reformatTagToLabel(searchTag)),
+            for (int i = 0; i < data.length; i++)
+              if (data[i].tag == searchTag)
+                HomeCard(habit: data[i].habit)
+          ],
+        ));
+  }
+
+}
+String reformatTagToLabel(String habit){
+  String temp='';
+  switch(habit){
+    case 'wakeup':{
+      temp='Wake up';
+      break;
+    }
+    case 'morning':{
+      temp='Morning';
+      break;
+    }
+    case 'noon':{
+      temp='Noon';
+      break;
+    }
+    case 'evening':{
+      temp='Evening';
+      break;
+    }
+    case 'beforesleep':{
+      temp='Before sleep';
+      break;
+    }
+  }
+  return temp;
+}
+bool checkContaining(List data,String searchTag){
+  var contain = data.where((element) => element.tag == searchTag);
+  if (contain.isEmpty){
+  return false;}
+  else {
+    return true;
   }
 }

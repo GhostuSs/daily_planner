@@ -24,7 +24,7 @@ class _TodayScreen extends State<TodayScreen>{
   int today=0;
   List<bool> selectedDate=List.generate(5, (index) => false);
   List data=[
-    Data(habit: 'fallasleepearly',tag: 'evening',date: DateTime.now())
+    Data(habit: 'fallasleepearly',tag: 'evening',repeat: Repeating.daily)
   ];
   List wakeUp =[];
   List morning=[];
@@ -325,7 +325,10 @@ class _TodayScreen extends State<TodayScreen>{
               )
             ],
           )
-        : Text('is empty'),
+        : Column(
+            children: const [
+            ],
+          ),
         ),
     );
   }

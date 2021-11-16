@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPage extends State<MainPage>{
-  int selectedIndex = 1;
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(

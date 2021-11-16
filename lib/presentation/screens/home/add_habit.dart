@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/list_habits.dart';
+import 'package:sleep_sound/data/pickup_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
@@ -19,34 +20,19 @@ class AddHabitScreen extends StatefulWidget {
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
   var textFieldController = TextEditingController();
-  final List data = [
-    Data(habit: 'brush', tag: 'wakeup', date: DateTime.now()),
-    Data(habit: 'drinkwater', tag: 'wakeup', date: DateTime.now()),
-    Data(habit: 'wakeearly', tag: 'wakeup', date: DateTime.now()),
-    Data(habit: 'excersize', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'read', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'lesscaffeine', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'eatfruits', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'drinkwater', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'lesscaffeine', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'stretch', tag: 'evening', date: DateTime.now()),
-    Data(habit: 'read', tag: 'evening', date: DateTime.now()),
-    Data(habit: 'takeashower', tag: 'evening', date: DateTime.now()),
-    Data(habit: 'drinkwater', tag: 'beforesleep', date: DateTime.now()),
-    Data(habit: 'takeashower', tag: 'beforesleep', date: DateTime.now()),
-  ];
+
   List<bool> isSelected = [];
-  var _textFieldController = TextEditingController();
+  TextEditingController _textFieldController = TextEditingController();
   @override
   initState() {
-    isSelected = List.generate(data.length, (index) => false);
+    isSelected = List.generate(context.read<PickUpHabits>().data.length, (index) => false);
     super.initState();
   }
 
   _onPressed() {
-    for (int i = 0; i < data.length; i++) {
+    for (int i = 0; i < context.read<PickUpHabits>().data.length; i++) {
       if (isSelected[i] == true) {
-        context.read<ListHabits>().listHabits.add(data[i]);
+        context.read<ListHabits>().listHabits.add(context.read<PickUpHabits>().data[i]);
       }
     }
     print(context.read<ListHabits>().printList());
@@ -64,7 +50,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Container(
         decoration: const BoxDecoration(gradient: customGradient),
-        child: data.isNotEmpty
+        child: context.read<PickUpHabits>().data.isNotEmpty
             ? Column(
                 children: [
                   Padding(
@@ -95,7 +81,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Visibility(
-                                visible: data.isNotEmpty,
+                                visible: context.read<PickUpHabits>().data.isNotEmpty,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -110,7 +96,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 0; i < 3; i++)
                                           HabitCard(
-                                            habit: data[i].habit,
+                                            habit: context.read<PickUpHabits>().data[i].habit,
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
@@ -121,7 +107,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   ],
                                 )),
                             Visibility(
-                              visible: data.isNotEmpty,
+                              visible: context.read<PickUpHabits>().data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -136,7 +122,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 3; i < 6; i++)
                                         HabitCard(
-                                          habit: data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -148,7 +134,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                               ),
                             ),
                             Visibility(
-                              visible: data.isNotEmpty,
+                              visible: context.read<PickUpHabits>().data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -163,7 +149,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 6; i <= 8; i++)
                                         HabitCard(
-                                          habit: data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -175,7 +161,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                               ),
                             ),
                             Visibility(
-                              visible: data.isNotEmpty,
+                              visible: context.read<PickUpHabits>().data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -190,7 +176,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 9; i <= 11; i++)
                                         HabitCard(
-                                          habit: data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -202,7 +188,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                               ),
                             ),
                             Visibility(
-                                visible: data.isNotEmpty,
+                                visible: context.read<PickUpHabits>().data.isNotEmpty,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -215,7 +201,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 12; i <= 13; i++)
                                           HabitCard(
-                                            habit: data[i].habit,
+                                            habit: context.read<PickUpHabits>().data[i].habit,
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
