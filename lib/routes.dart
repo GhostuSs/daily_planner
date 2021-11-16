@@ -6,5 +6,5 @@ import 'package:sleep_sound/presentation/screens/onboarding/onboarding.dart';
 var routes = {
   '/onboarding': (BuildContext context) => const OnBoardingScreen(),
   '/': (BuildContext context) => MainPage(),
-  '/addhabit': (BuildContext context) => AddHabitScreen()
+  '/addhabit': (BuildContext context) => const AddHabitScreen()
 };

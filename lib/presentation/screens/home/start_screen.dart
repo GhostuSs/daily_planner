@@ -32,50 +32,18 @@ class HabitsScreen extends StatefulWidget {
 
 class _HabitsScreen extends State<HabitsScreen> {
   List data=[];
-  List wakeUp = [];
-  List morning = [];
-  List noon = [];
-  List evening = [];
-  List beforeSleep = [];
+
   @override
   initState() {
-    data=context.read<ListHabits>().listHabits;
     isSelected[0]=true;
-    print(data.length);
-    for (int i = 0; i < data.length; i++) {
-      switch (data[i].tag) {
-        case 'wakeup':
-          {
-            wakeUp.add(data[i]);
-            break;
-          }
-        case 'morning':
-          {
-            morning.add(data[i]);
-            break;
-          }
-        case 'noon':
-          {
-            noon.add(data[i]);
-            break;
-          }
-        case 'evening':
-          {
-            evening.add(data[i]);
-            break;
-          }
-        case 'beforesleep':
-          {
-            beforeSleep.add(data[i]);
-            break;
-          }
-      }
-    }
+    data=context.read<ListHabits>().listHabits;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if(isSelected.contains(true)==false) isSelected[0]=true;
+    data=context.read<ListHabits>().listHabits;
     return Scaffold(
       appBar: RawAppBar(title: 'home', addBtn: false),
       floatingActionButton: Padding(
@@ -136,7 +104,7 @@ class _HabitsScreen extends State<HabitsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Visibility(
-                                visible: wakeUp.isNotEmpty&&(isSelected[0]||isSelected[1]),
+                                visible: data.isNotEmpty&&(isSelected[0]||isSelected[1]),
                                 child: Column(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,
@@ -147,11 +115,11 @@ class _HabitsScreen extends State<HabitsScreen> {
                                       child: Text('Wake up',
                                           style: _textStyle),
                                     ),
-                                    for(int i=0;i<wakeUp.length;i++)RawCardStat(habit: wakeUp[i].habit)
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='wakeup')RawCardStat(habit: data[i].habit)
                                   ],
                                 )),
                             Visibility(
-                              visible: morning.isNotEmpty&&(isSelected[0]||isSelected[2]),
+                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[2]),
                               child: Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
@@ -162,12 +130,12 @@ class _HabitsScreen extends State<HabitsScreen> {
                                     child:
                                     Text('Morning', style: _textStyle),
                                   ),
-                                  for(int i=0;i<morning.length;i++)RawCardStat(habit: morning[i].habit)
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='morning')RawCardStat(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: noon.isNotEmpty&&(isSelected[0]||isSelected[3]),
+                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[3]),
                               child: Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
@@ -177,12 +145,12 @@ class _HabitsScreen extends State<HabitsScreen> {
                                         vertical: 10, horizontal: 5),
                                     child: Text('Noon', style: _textStyle),
                                   ),
-                                  for(int i=0;i<noon.length;i++)RawCardStat(habit: noon[i].habit)
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='noon')RawCardStat(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: evening.isNotEmpty&&(isSelected[0]||isSelected[4]),
+                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[4]),
                               child: Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
@@ -193,12 +161,12 @@ class _HabitsScreen extends State<HabitsScreen> {
                                     child:
                                     Text('Evening', style: _textStyle),
                                   ),
-                                  for(int i=0;i<evening.length;i++)RawCardStat(habit: evening[i].habit)
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='evening')RawCardStat(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                                visible: beforeSleep.isNotEmpty&&(isSelected[0]||isSelected[5]),
+                                visible: data.isNotEmpty&&(isSelected[0]||isSelected[5]),
                                 child: Column(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,
@@ -209,7 +177,7 @@ class _HabitsScreen extends State<HabitsScreen> {
                                       child: Text('Before sleep',
                                           style: _textStyle),
                                     ),
-                                    for(int i=0;i<beforeSleep.length;i++)RawCardStat(habit: beforeSleep[i].habit)
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='beforesleep')RawCardStat(habit: data[i].habit)
                                   ],
                                 )),
                           ],

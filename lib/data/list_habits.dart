@@ -9,7 +9,7 @@ class ListHabits{
   printList(){
     for(int i=0;i<listHabits.length;i++){
       print(listHabits[i].habit);
-      print(listHabits[i].tag);
+      print('tag ${listHabits[i].tag}');
       print(listHabits[i].date);
     }
   }
