@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sleep_sound/data/data.dart';
 import 'package:provider/provider.dart';
 import 'package:sleep_sound/data/list_habits.dart';
-import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
-import 'package:sleep_sound/data/resources/images.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/buttons/raw_buttons.dart';
+import 'package:sleep_sound/presentation/components/cards/home_card.dart';
 import 'package:sleep_sound/presentation/components/filters/filter.dart';
+import 'package:sleep_sound/presentation/components/home/empty_data.dart';
+import 'package:sleep_sound/presentation/components/labels/home_label.dart';
 
 import 'add_habit.dart';
 
@@ -31,24 +31,31 @@ class HabitsScreen extends StatefulWidget {
 }
 
 class _HabitsScreen extends State<HabitsScreen> {
-  List data=[];
+  List data = [];
 
   @override
   initState() {
-    isSelected[0]=true;
-    data=context.read<ListHabits>().listHabits;
+    isSelected[0] = true;
+    data = context.read<ListHabits>().listHabits;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if(isSelected.contains(true)==false) isSelected[0]=true;
-    data=context.read<ListHabits>().listHabits;
+    if (isSelected.contains(true) == false) isSelected[0] = true;
+    data = context.read<ListHabits>().listHabits;
     return Scaffold(
       appBar: RawAppBar(title: 'home', addBtn: false),
       floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
-          child: RawButton('add a new habit', ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: AddHabitScreen(),)))),
+          child: RawButton(
+              'add a new habit',
+              () => Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: const AddHabitScreen(),
+                  )))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Container(
         width: double.infinity,
@@ -104,80 +111,66 @@ class _HabitsScreen extends State<HabitsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Visibility(
-                                visible: data.isNotEmpty&&(isSelected[0]||isSelected[1]),
+                                visible: data.isNotEmpty &&
+                                    (isSelected[0] || isSelected[1]),
                                 child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 5),
-                                      child: Text('Wake up',
-                                          style: _textStyle),
-                                    ),
-                                    for(int i=0;i<data.length;i++)if(data[i].tag=='wakeup')RawCardStat(habit: data[i].habit)
+                                    const PartOfDayLabel(label: 'Wake up'),
+                                    for (int i = 0; i < data.length; i++)
+                                      if (data[i].tag == 'wakeup')
+                                        HomeCard(habit: data[i].habit)
                                   ],
                                 )),
                             Visibility(
-                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[2]),
+                              visible: data.isNotEmpty &&
+                                  (isSelected[0] || isSelected[2]),
                               child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    child:
-                                    Text('Morning', style: _textStyle),
-                                  ),
-                                  for(int i=0;i<data.length;i++)if(data[i].tag=='morning')RawCardStat(habit: data[i].habit)
+                                  const PartOfDayLabel(label: 'Morning'),
+                                  for (int i = 0; i < data.length; i++)
+                                    if (data[i].tag == 'morning')
+                                      HomeCard(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[3]),
+                              visible: data.isNotEmpty &&
+                                  (isSelected[0] || isSelected[3]),
                               child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    child: Text('Noon', style: _textStyle),
-                                  ),
-                                  for(int i=0;i<data.length;i++)if(data[i].tag=='noon')RawCardStat(habit: data[i].habit)
+                                  const PartOfDayLabel(label: 'Noon'),
+                                  for (int i = 0; i < data.length; i++)
+                                    if (data[i].tag == 'noon')
+                                      HomeCard(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: data.isNotEmpty&&(isSelected[0]||isSelected[4]),
+                              visible: data.isNotEmpty &&
+                                  (isSelected[0] || isSelected[4]),
                               child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    child:
-                                    Text('Evening', style: _textStyle),
-                                  ),
-                                  for(int i=0;i<data.length;i++)if(data[i].tag=='evening')RawCardStat(habit: data[i].habit)
+                                  const PartOfDayLabel(label: 'Evening'),
+                                  for (int i = 0; i < data.length; i++)
+                                    if (data[i].tag == 'evening')
+                                      HomeCard(habit: data[i].habit)
                                 ],
                               ),
                             ),
                             Visibility(
-                                visible: data.isNotEmpty&&(isSelected[0]||isSelected[5]),
+                                visible: data.isNotEmpty &&
+                                    (isSelected[0] || isSelected[5]),
                                 child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 5),
-                                      child: Text('Before sleep',
-                                          style: _textStyle),
-                                    ),
-                                    for(int i=0;i<data.length;i++)if(data[i].tag=='beforesleep')RawCardStat(habit: data[i].habit)
+                                    const PartOfDayLabel(label: 'Before sleep'),
+                                    for (int i = 0; i < data.length; i++)
+                                      if (data[i].tag == 'beforesleep')
+                                        HomeCard(habit: data[i].habit)
                                   ],
                                 )),
                           ],
@@ -191,77 +184,6 @@ class _HabitsScreen extends State<HabitsScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [EmptyDataWidget()],
               ),
-      ),
-    );
-  }
-
-  final TextStyle _textStyle = const TextStyle(
-      color: Colors.white,
-      fontSize: 24,
-      fontFamily: 'JoseFinSans-Light',
-      fontWeight: FontWeight.w400);
-}
-
-class EmptyDataWidget extends StatelessWidget {
-  const EmptyDataWidget({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-            child: Image.asset(
-          AppImages.yoga,
-        )),
-        const SizedBox(height: 20),
-        Text(
-          "You haven't added\nany habits yet",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: textWhite.withOpacity(0.5),
-              fontSize: 24,
-              fontFamily: 'OpenSans-SemiBold',
-              fontWeight: FontWeight.w400),
-        )
-      ],
-    );
-  }
-}
-
-class RawCardStat extends StatelessWidget {
-  final String habit;
-
-  const RawCardStat({Key? key, required this.habit}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    const String path = 'assets/icons/';
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: ListTile(
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: const Color(0xCC210741).withOpacity(0.8),
-              borderRadius: BorderRadius.circular(52)),
-          child: Image.asset(
-            path + habit + '.png',
-            filterQuality: FilterQuality.high,
-          ),
-        ),
-        trailing: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              '0 days/m',
-              style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: 'JosefinSans-Thin',
-                  color: Colors.white.withOpacity(0.5),
-                  letterSpacing: -0.3),
-            )
-          ],
-        ),
       ),
     );
   }
