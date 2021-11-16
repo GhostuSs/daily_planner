@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sleep_sound/data/data.dart';
+import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
-import 'package:sleep_sound/presentation/components/buttons/raw_buttons.dart';
 import 'package:sleep_sound/presentation/components/cards/habit_card.dart';
 import 'package:sleep_sound/presentation/components/rows/raw_row.dart';
 import 'package:sleep_sound/presentation/components/text_field/raw_textfield.dart';
 
 class AddHabitScreen extends StatefulWidget {
+  const AddHabitScreen({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _AddHabitScreenState();
@@ -16,66 +17,27 @@ class AddHabitScreen extends StatefulWidget {
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
   var textFieldController = TextEditingController();
-  String month = '';
-  int daysInMonth = 0;
-  int today = 0;
-  List<bool> selectedDate = List.generate(5, (index) => false);
-  List data = [
+  final List data = [
     Data(habit: 'brush', tag: 'wakeup', date: DateTime.now()),
     Data(habit: 'drinkwater', tag: 'wakeup', date: DateTime.now()),
     Data(habit: 'wakeearly', tag: 'wakeup', date: DateTime.now()),
-    Data(habit: 'excersize', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'read', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'lesscaffeine', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'eatfruits', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'drinkwater', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'lesscaffeine', tag: 'noon', date: DateTime.now()),
-    Data(habit: 'stretch', tag: 'evening', date: DateTime.now()),
-    Data(habit: 'read', tag: 'evening', date: DateTime.now()),
-    Data(habit: 'takeashower', tag: 'evening', date: DateTime.now()),
+    Data(habit: 'excersize', tag: 'data', date: DateTime.now()),
+    Data(habit: 'read', tag: 'data', date: DateTime.now()),
+    Data(habit: 'lesscaffeine', tag: 'data', date: DateTime.now()),
+    Data(habit: 'eatfruits', tag: 'data', date: DateTime.now()),
+    Data(habit: 'drinkwater', tag: 'data', date: DateTime.now()),
+    Data(habit: 'lesscaffeine', tag: 'data', date: DateTime.now()),
+    Data(habit: 'stretch', tag: 'data', date: DateTime.now()),
+    Data(habit: 'read', tag: 'data', date: DateTime.now()),
+    Data(habit: 'takeashower', tag: 'data', date: DateTime.now()),
     Data(habit: 'drinkwater', tag: 'beforesleep', date: DateTime.now()),
     Data(habit: 'takeashower', tag: 'beforesleep', date: DateTime.now()),
   ];
-  List wakeUp = [];
-  List morning = [];
-  List noon = [];
-  List evening = [];
-  List beforeSleep = [];
+  List<bool> isSelected = [];
   var _textFieldController = TextEditingController();
-
   @override
   initState() {
-    print(DateTime.now());
-    print(data.length);
-    for (int i = 0; i < data.length; i++) {
-      switch (data[i].tag) {
-        case 'wakeup':
-          {
-            wakeUp.add(data[i]);
-            break;
-          }
-        case 'morning':
-          {
-            morning.add(data[i]);
-            break;
-          }
-        case 'noon':
-          {
-            noon.add(data[i]);
-            break;
-          }
-        case 'evening':
-          {
-            evening.add(data[i]);
-            break;
-          }
-        case 'beforesleep':
-          {
-            beforeSleep.add(data[i]);
-            break;
-          }
-      }
-    }
+    isSelected=List.generate(data.length, (index)=>false);
     super.initState();
   }
 
@@ -84,10 +46,11 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     return Scaffold(
       appBar: RawAppBar(title: ' ', addBtn: false),
       floatingActionButton: Container(
-        padding: EdgeInsets.all(20),
-        child: RawButton(
+        padding: const EdgeInsets.all(20),
+        child: DoneButton(
             'DONE',
-                (){}
+                (){},
+          isSelected
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -112,11 +75,11 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                     width: MediaQuery.of(context).size.width * 0.95,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color(0xCC210741).withOpacity(0.8)),
+                        color: const Color(0xCC210741).withOpacity(0.8)),
                     child: RawTextField(null, 'Create custom habit', null,
                         _textFieldController),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: ListView(
                       children: [
@@ -124,7 +87,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Visibility(
-                                visible: wakeUp.isNotEmpty,
+                                visible: data.isNotEmpty,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -136,14 +99,14 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       crossAxisAlignment: WrapCrossAlignment.center,
                                       alignment: WrapAlignment.center,
                                       children: [
-                                        for (int i = 0; i < wakeUp.length; i++)
-                                          HabitCard(habit: wakeUp[i].habit)
+                                        for (int i = 0; i < 3; i++)
+                                          HabitCard(habit: data[i].habit,onTap: ()=>setState((){isSelected[i]=!isSelected[i];}), isSelected: isSelected[i],)
                                       ],
                                     )
                                   ],
                                 )),
                             Visibility(
-                              visible: morning.isNotEmpty,
+                              visible: data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -155,15 +118,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     crossAxisAlignment: WrapCrossAlignment.center,
                                     alignment: WrapAlignment.center,
                                     children: [
-                                      for (int i = 0; i < morning.length; i++)
-                                        HabitCard(habit: morning[i].habit)
+                                      for (int i = 3; i <6; i++)
+                                        HabitCard(habit: data[i].habit,onTap: ()=>setState((){isSelected[i]=!isSelected[i];}), isSelected: isSelected[i],)
                                     ],
                                   )
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: noon.isNotEmpty,
+                              visible: data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -175,15 +138,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     crossAxisAlignment: WrapCrossAlignment.center,
                                     alignment: WrapAlignment.center,
                                     children: [
-                                      for (int i = 0; i < noon.length; i++)
-                                        HabitCard(habit: noon[i].habit)
+                                      for (int i = 6; i <=8; i++)
+                                        HabitCard(habit: data[i].habit,onTap: ()=>setState((){isSelected[i]=!isSelected[i];}), isSelected: isSelected[i],)
                                     ],
                                   )
                                 ],
                               ),
                             ),
                             Visibility(
-                              visible: evening.isNotEmpty,
+                              visible: data.isNotEmpty,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -195,15 +158,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     crossAxisAlignment: WrapCrossAlignment.center,
                                     alignment: WrapAlignment.center,
                                     children: [
-                                      for (int i = 0; i < evening.length; i++)
-                                        HabitCard(habit: evening[i].habit)
+                                      for (int i = 9; i <=11; i++)
+                                        HabitCard(habit: data[i].habit,onTap: ()=>setState((){isSelected[i]=!isSelected[i];}), isSelected: isSelected[i],)
                                     ],
                                   )
                                 ],
                               ),
                             ),
                             Visibility(
-                                visible: beforeSleep.isNotEmpty,
+                                visible: data.isNotEmpty,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -213,14 +176,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       alignment: WrapAlignment.center,
                                       crossAxisAlignment: WrapCrossAlignment.center,
                                       children: [
-                                        for (int i = 0;
-                                            i < beforeSleep.length;
-                                            i++)
-                                          HabitCard(habit: beforeSleep[i].habit)
+                                        for (int i = 12;
+                                        i <=13;
+                                        i++)
+                                          HabitCard(habit: data[i].habit,onTap: ()=>setState((){isSelected[i]=!isSelected[i];}), isSelected: isSelected[i],)
                                       ],
                                     )
                                   ],
                                 )),
+
                           ],
                         )
                       ],
@@ -234,12 +198,6 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   }
 
   _onTap() => Navigator.pushNamed(context, '/');
-  final TextStyle _textStyle = const TextStyle(
-      color: Colors.white,
-      fontSize: 24,
-      fontFamily: 'JoseFinSans-Light',
-      fontWeight: FontWeight.w400,
-      letterSpacing: -0.3);
 
   String textDay(int index) {
     String temp = '';
@@ -272,4 +230,56 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     }
     return temp;
   }
+
+}
+
+class DoneButton extends StatelessWidget{
+  final String text;
+  final List<bool> isSelected;
+  final onPressed;
+
+  DoneButton(this.text,this.onPressed,this.isSelected);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 56,
+      decoration: BoxDecoration(
+          gradient: isSelected.contains(true)
+              ? const LinearGradient(
+              colors: [
+                basePink,
+                darkPink
+              ]
+          )
+              : LinearGradient(
+            colors: [
+              const Color(0xBEBEBE).withOpacity(0.95),
+              const Color(0xBEBEBE).withOpacity(0.95)
+            ]
+          ),
+          borderRadius: BorderRadius.circular(8.0)
+      ),
+      child: InkWell(
+          child: Center(
+            child: Text(
+              text.toUpperCase(),
+              style: const TextStyle(
+                color: textWhite,
+                fontSize: 24.0,
+                fontFamily: 'JosefinSans-Bold',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          splashColor: basePurple,
+          highlightColor: basePurple,
+          onTap:
+          isSelected.contains(true)
+          ? onPressed
+              :(){}
+      ),
+    );
+  }
+
 }

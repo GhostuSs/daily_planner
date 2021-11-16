@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sleep_sound/data/data.dart';
+import 'package:provider/provider.dart';
+import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/data/resources/images.dart';
@@ -29,11 +31,7 @@ class HabitsScreen extends StatefulWidget {
 }
 
 class _HabitsScreen extends State<HabitsScreen> {
-  List data = [
-    Data(habit: 'excersize', tag: 'wakeup', date: DateTime.now()),
-    Data(habit: 'excersize', tag: 'morning', date: DateTime.now()),
-    Data(habit: 'read', tag: 'wakeup', date: DateTime.now())
-  ];
+  List data=[];
   List wakeUp = [];
   List morning = [];
   List noon = [];
@@ -41,6 +39,7 @@ class _HabitsScreen extends State<HabitsScreen> {
   List beforeSleep = [];
   @override
   initState() {
+    data=context.read<ListHabits>().listHabits;
     isSelected[0]=true;
     print(data.length);
     for (int i = 0; i < data.length; i++) {

@@ -241,7 +241,7 @@ class _TodayScreen extends State<TodayScreen>{
                                 ),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit)
+                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit,onTap: (){}, isSelected: false,)
                                   ],
                                 )
                               ],
@@ -255,7 +255,7 @@ class _TodayScreen extends State<TodayScreen>{
                               RawTitle(label: 'Morning', onTap: _onTap, textStyle: _textStyle),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit)
+                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -275,7 +275,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit)
+                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -295,7 +295,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit)
+                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -313,7 +313,7 @@ class _TodayScreen extends State<TodayScreen>{
                                   label: 'Before sleep'),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit)
+                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit,onTap: (){},isSelected: false)
                                   ],
                                 )
                               ],
