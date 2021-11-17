@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sleep_sound/data/data.dart';
+import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:sleep_sound/presentation/components/calendar/raw_calendar.dart';
+import 'package:sleep_sound/presentation/progress_bar/raw_progressbar.dart';
+import 'package:provider/provider.dart';
 
 class DescriptionScreen extends StatefulWidget {
   final String title;
@@ -14,8 +18,13 @@ class DescriptionScreen extends StatefulWidget {
 }
 
 class _DescriptionScreen extends State<DescriptionScreen> {
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
+  late List<DateTime> selectedEvents;
+
   @override
-  initState() {
+  initState(){
+    selectedEvents=[];
     super.initState();
   }
 
@@ -75,9 +84,10 @@ class _DescriptionScreen extends State<DescriptionScreen> {
     }
     return temp;
   }
-
+  double value = 0.15;
   @override
   Widget build(BuildContext context) {
+    print(selectedEvents);
     return Scaffold(
         appBar: RawAppBar(title: reformatHabit(widget.title), addBtn: false),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -97,116 +107,13 @@ class _DescriptionScreen extends State<DescriptionScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30,vertical: 10),
-                  child: TableCalendar(
-                    firstDay: DateTime.utc(2018, 10, 16),
-                    lastDay: DateTime.utc(2030, 3, 14),
-                    focusedDay: DateTime.now(),
-                    rowHeight: 50,
-                    daysOfWeekVisible: true,
-                    calendarStyle: CalendarStyle(
-                      outsideDaysVisible: true,
-                      outsideTextStyle: TextStyle(
-                        color: Colors.white.withOpacity(0.4)
-                      ),
-                      defaultTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'JosefinSans-Bold',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15
-                      ),
-                      selectedTextStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'JosefinSans-Bold',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15
-                      ),
-                      todayTextStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'JosefinSans-Bold',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15
-                      ),
-                      weekendTextStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'JosefinSans-Bold',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15
-                      ),
-                      markerDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                              stops: const [
-                                0.0,
-                                0.31,
-                                1.0
-                              ],
-                              colors: [
-                                const Color(0xFFFFCACF).withOpacity(0.95),
-                                const Color(0xFFFEA7AF
-                                ).withOpacity(0.95),
-                                const Color(0xFFF862BD).withOpacity(0.95)
-                              ]
-                          )
-                      ),
-                      todayDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                              stops: const [
-                                0.0,
-                                0.31,
-                                1.0
-                              ],
-                              colors: [
-                                const Color(0xFFFFCACF).withOpacity(0.95),
-                                const Color(0xFFFEA7AF
-                                ).withOpacity(0.95),
-                                const Color(0xFFF862BD).withOpacity(0.95)
-                              ]
-                          )
-                      ),
-                      selectedDecoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          stops: const [
-                            0.0,
-                            0.31,
-                            1.0
-                          ],
-                          colors: [
-                            const Color(0xFFFFCACF).withOpacity(0.95),
-                            const Color(0xFFFEA7AF
-                            ).withOpacity(0.95),
-                            const Color(0xFFF862BD).withOpacity(0.95)
-                          ]
-                        )
-                      )
-                    ),
-                    headerStyle: HeaderStyle(
-                      titleCentered: true,
-                      formatButtonVisible: false,
-                      leftChevronPadding: EdgeInsets.symmetric(vertical: 10),
-                      rightChevronPadding: EdgeInsets.symmetric(vertical: 10),
-                      leftChevronIcon: CustomChevron(direction: Direction.left),
-                      rightChevronIcon: CustomChevron(direction: Direction.right),
-                      titleTextStyle: const TextStyle(
-                        color: textWhite,
-                        fontFamily:'JosefinSans-Bold',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        letterSpacing: -0.3,
-                      ),
-                      headerPadding: EdgeInsets.zero,
-                    ),
-
-                  ),
-                ),
+                RawCalendar(selectedDay: selectedDay, focusedDay: focusedDay, selectedEvents: selectedEvents),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Text(
                         'Progression',
                         style: TextStyle(
@@ -220,49 +127,38 @@ class _DescriptionScreen extends State<DescriptionScreen> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                LinearProgressIndicator(
-                  value: 0.15,
-                  minHeight: 32,
-                  backgroundColor: Color(0xCC210741),
-                  color: darkPink,
-                )
-
-
+                ProgressBar(value: value)
               ],
             )));
   }
 }
-enum Direction{
-  left,
-  right
-}
-class CustomChevron extends StatelessWidget{
+
+enum Direction { left, right }
+
+class CustomChevron extends StatelessWidget {
   final Direction direction;
   CustomChevron({required this.direction});
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-      shaderCallback: (bounds)=>LinearGradient(
-          stops: const [
-            0.0,
-            0.31,
-            1.0
-          ],
-          colors: [
-            const Color(0xFFFFCACF).withOpacity(0.95),
-            const Color(0xFFFEA7AF).withOpacity(0.95),
-            const Color(0xFFF862BD).withOpacity(0.95)
-          ]
-      ).createShader(bounds),
+      shaderCallback: (bounds) => LinearGradient(stops: const [
+        0.0,
+        0.31,
+        1.0
+      ], colors: [
+        const Color(0xFFFFCACF).withOpacity(0.95),
+        const Color(0xFFFEA7AF).withOpacity(0.95),
+        const Color(0xFFF862BD).withOpacity(0.95)
+      ]).createShader(bounds),
       child: Icon(
-        direction==Direction.left
-        ? Icons.chevron_left
-        :Icons.chevron_right,
+        direction == Direction.left ? Icons.chevron_left : Icons.chevron_right,
       ),
     );
   }
-
 }
+
+
+
