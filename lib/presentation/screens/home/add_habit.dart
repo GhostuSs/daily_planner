@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
-import 'package:sleep_sound/data/data.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/pickup_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
@@ -9,6 +9,8 @@ import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/cards/habit_card.dart';
 import 'package:sleep_sound/presentation/components/rows/raw_row.dart';
 import 'package:sleep_sound/presentation/components/text_field/raw_textfield.dart';
+
+import 'add_custom_habit.dart';
 
 class AddHabitScreen extends StatefulWidget {
   const AddHabitScreen({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   var textFieldController = TextEditingController();
 
   List<bool> isSelected = [];
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
   @override
   initState() {
     isSelected = List.generate(context.read<PickUpHabits>().data.length, (index) => false);
@@ -86,7 +88,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     RawRow(
-                                      onTap: _onTap,
+                                      onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'wakeup'))),
                                       label: 'Wake up',
                                     ),
                                     Wrap(
@@ -96,7 +98,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 0; i < 3; i++)
                                           HabitCard(
-                                            habit: context.read<PickUpHabits>().data[i].habit,
+                                            habit: context.read<PickUpHabits>().data[i].habit!,
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
@@ -113,7 +115,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 children: [
                                   RawRow(
                                     label: 'Morning',
-                                    onTap: _onTap,
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'morning'))),
                                   ),
                                   Wrap(
                                     crossAxisAlignment:
@@ -122,7 +124,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 3; i < 6; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit!,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -140,7 +142,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 children: [
                                   RawRow(
                                     label: 'Noon',
-                                    onTap: _onTap,
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'noon'))),
                                   ),
                                   Wrap(
                                     crossAxisAlignment:
@@ -149,7 +151,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 6; i <= 8; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit!,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -166,7 +168,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RawRow(
-                                    onTap: _onTap,
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'evening'))),
                                     label: 'Evening',
                                   ),
                                   Wrap(
@@ -176,7 +178,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 9; i <= 11; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit,
+                                          habit: context.read<PickUpHabits>().data[i].habit!,
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -193,7 +195,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     RawRow(
-                                        onTap: _onTap, label: 'Before sleep'),
+                                        onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'beforesleep'))), label: 'Before sleep'),
                                     Wrap(
                                       alignment: WrapAlignment.center,
                                       crossAxisAlignment:
@@ -201,7 +203,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 12; i <= 13; i++)
                                           HabitCard(
-                                            habit: context.read<PickUpHabits>().data[i].habit,
+                                            habit: context.read<PickUpHabits>().data[i].habit!,
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
@@ -222,8 +224,6 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       ),
     );
   }
-
-  _onTap() => Navigator.pushNamed(context, '/');
 
   String textDay(int index) {
     String temp = '';
@@ -263,7 +263,7 @@ class DoneButton extends StatelessWidget {
   final List<bool> isSelected;
   final onPressed;
 
-  DoneButton(this.text, this.onPressed, this.isSelected);
+  const DoneButton(this.text, this.onPressed, this.isSelected);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -273,8 +273,8 @@ class DoneButton extends StatelessWidget {
           gradient: isSelected.contains(true)
               ? const LinearGradient(colors: [basePink, darkPink])
               : LinearGradient(colors: [
-                  const Color(0xBEBEBE).withOpacity(0.95),
-                  const Color(0xBEBEBE).withOpacity(0.95)
+                  const Color(0xFFBEBEBE).withOpacity(0.95),
+                  const Color(0xFFBEBEBE).withOpacity(0.95)
                 ]),
           borderRadius: BorderRadius.circular(8.0)),
       child: InkWell(

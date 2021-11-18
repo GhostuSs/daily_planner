@@ -13,21 +13,29 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPage extends State<MainPage>{
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       resizeToAvoidBottomInset: true,
-      tabBar: btmNavBar(selectedIndex),
+      tabBar: btmNavBar(_selectedIndex),
       tabBuilder: (BuildContext context, _selectedIndex){
-        List pages = [
-          const HabitsScreen(),
-          TodayScreen(),
-          const SettingsScreen(),
-        ];
         return CupertinoTabView(
             builder:(context){
-              return pages[_selectedIndex];
+              switch(_selectedIndex){
+                case 1: {
+                  return new HabitsScreen();
+                }
+                case 2:{
+                  return new TodayScreen();
+                }
+                case 3: {
+                  return new SettingsScreen();
+                }
+                default:{
+                  return new HabitsScreen();
+                }
+              }
             }
         );
       },

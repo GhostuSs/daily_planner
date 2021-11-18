@@ -36,14 +36,21 @@ class _HabitsScreen extends State<HabitsScreen> {
   @override
   initState() {
     isSelected[0] = true;
-    data = context.read<ListHabits>().listHabits;
+    checkData();
     super.initState();
   }
-
+  bool checkData(){
+    bool flag=false;
+    data = context.read<ListHabits>().listHabits;
+    data.isNotEmpty
+    ? flag=true
+        :flag=false;
+    return flag;
+  }
   @override
   Widget build(BuildContext context) {
     if (isSelected.contains(true) == false) isSelected[0] = true;
-    data = context.read<ListHabits>().listHabits;
+    checkData();
     return Scaffold(
       appBar: RawAppBar(title: 'home', addBtn: false),
       floatingActionButton: Padding(
@@ -60,96 +67,96 @@ class _HabitsScreen extends State<HabitsScreen> {
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(gradient: customGradient),
-        child: data.isNotEmpty
+        child: checkData()
             ? Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text(
+                'your habits'.toUpperCase(),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontFamily: 'JosefinSans-Light',
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Wrap(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Text(
-                      'your habits'.toUpperCase(),
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontFamily: 'JosefinSans-Light',
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Wrap(
-                      children: [
-                        for (int i = 0; i < tags.length; i++)
-                          Filter(
-                              tag: tags[i],
-                              isSelected: isSelected[i],
-                              onTap: () => setState(() {
-                                    switch (i) {
-                                      case 0:
-                                        {
-                                          isSelected = List.generate(
-                                              tags.length, (index) => false);
-                                          isSelected[i] = true;
-                                          break;
-                                        }
-                                      default:
-                                        {
-                                          isSelected[0] = false;
-                                          isSelected[i] = !isSelected[i];
-                                          break;
-                                        }
-                                    }
-                                  }))
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            PointColumn(
-                                data: data,
-                                isSelected: isSelected,
-                                searchTag: 'wakeup',
-                                isSelectedIndex:1
-                            ),
-                            PointColumn(
-                                data: data,
-                                isSelected: isSelected,
-                                searchTag: 'morning',
-                                isSelectedIndex:2
-                            ),
-                            PointColumn(
-                                data: data,
-                                isSelected: isSelected,
-                                searchTag: 'noon',
-                                isSelectedIndex:3
-                            ),
-                            PointColumn(
-                                data: data,
-                                isSelected: isSelected,
-                                searchTag: 'evening',
-                                isSelectedIndex:4
-                            ),
-                            PointColumn(
-                              data: data,
-                            isSelected: isSelected,
-                            searchTag: 'beforesleep',
-                            isSelectedIndex:5),
-                          ],
-                        )
-                      ],
-                    ),
+                  for (int i = 0; i < tags.length; i++)
+                    Filter(
+                        tag: tags[i],
+                        isSelected: isSelected[i],
+                        onTap: () => setState(() {
+                          switch (i) {
+                            case 0:
+                              {
+                                isSelected = List.generate(
+                                    tags.length, (index) => false);
+                                isSelected[i] = true;
+                                break;
+                              }
+                            default:
+                              {
+                                isSelected[0] = false;
+                                isSelected[i] = !isSelected[i];
+                                break;
+                              }
+                          }
+                        }))
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PointColumn(
+                          data: data,
+                          isSelected: isSelected,
+                          searchTag: 'wakeup',
+                          isSelectedIndex:1
+                      ),
+                      PointColumn(
+                          data: data,
+                          isSelected: isSelected,
+                          searchTag: 'morning',
+                          isSelectedIndex:2
+                      ),
+                      PointColumn(
+                          data: data,
+                          isSelected: isSelected,
+                          searchTag: 'noon',
+                          isSelectedIndex:3
+                      ),
+                      PointColumn(
+                          data: data,
+                          isSelected: isSelected,
+                          searchTag: 'evening',
+                          isSelectedIndex:4
+                      ),
+                      PointColumn(
+                          data: data,
+                          isSelected: isSelected,
+                          searchTag: 'beforesleep',
+                          isSelectedIndex:5),
+                    ],
                   )
                 ],
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [EmptyDataWidget()],
               ),
+            )
+          ],
+        )
+            : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [EmptyDataWidget()],
+        )
       ),
     );
   }
