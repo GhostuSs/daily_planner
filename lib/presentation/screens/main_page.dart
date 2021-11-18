@@ -23,17 +23,14 @@ class _MainPage extends State<MainPage>{
         return CupertinoTabView(
             builder:(context){
               switch(_selectedIndex){
-                case 1: {
+                case 0: {
                   return new HabitsScreen();
                 }
-                case 2:{
+                case 1:{
                   return new TodayScreen();
                 }
-                case 3: {
+                default: {
                   return new SettingsScreen();
-                }
-                default:{
-                  return new HabitsScreen();
                 }
               }
             }

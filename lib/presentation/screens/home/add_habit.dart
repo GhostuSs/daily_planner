@@ -88,7 +88,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     RawRow(
-                                      onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'wakeup'))),
+                                      onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                       label: 'Wake up',
                                     ),
                                     Wrap(
@@ -115,7 +115,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 children: [
                                   RawRow(
                                     label: 'Morning',
-                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'morning'))),
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                   ),
                                   Wrap(
                                     crossAxisAlignment:
@@ -142,7 +142,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 children: [
                                   RawRow(
                                     label: 'Noon',
-                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'noon'))),
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                   ),
                                   Wrap(
                                     crossAxisAlignment:
@@ -168,7 +168,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RawRow(
-                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'evening'))),
+                                    onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                     label: 'Evening',
                                   ),
                                   Wrap(
@@ -195,7 +195,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     RawRow(
-                                        onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen(tag: 'beforesleep'))), label: 'Before sleep'),
+                                        onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())), label: 'Before sleep'),
                                     Wrap(
                                       alignment: WrapAlignment.center,
                                       crossAxisAlignment:

@@ -9,13 +9,10 @@ import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/cards/custom_habit_card.dart';
 import 'package:sleep_sound/presentation/components/segmented/raw_segmented.dart';
 import 'package:sleep_sound/presentation/components/text_field/raw_textfield.dart';
-import 'package:sleep_sound/presentation/screens/home/start_screen.dart';
 
 class AddCustomHabitScreen extends StatefulWidget {
+  const AddCustomHabitScreen({Key? key}) : super(key: key);
 
-  final String tag;
-
-  const AddCustomHabitScreen({Key? key, required this.tag}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _AddCustomHabitScreenState();
@@ -38,7 +35,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
   @override
   initState(){
     isSelectedTime=List.generate(5, (index) => false);
-    isSelectedHabit = List.generate(context.read<PickUpHabits>().customHabitData.length, (index) => false);
+    isSelectedHabit = List.generate(15, (index) => false);
     super.initState();
   }
 
@@ -54,7 +51,6 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
 
   @override
   Widget build(BuildContext context) {
-    isSelectedHabit = List.generate(context.read<PickUpHabits>().customHabitData.length, (index) => false);
     return Scaffold(
       appBar: RawAppBar(title: ' ', addBtn: false),
       floatingActionButton: Container(
@@ -140,8 +136,9 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                                     for (int i = 0; i <15; i++)
                                       CustomHabitCard(
                                         habit: context.read<PickUpHabits>().customHabitData[i].habit!,
-                                        onTap: () => setState(() {
+                                        onTap: () => setState((){
                                           isSelectedHabit[i] = !isSelectedHabit[i];
+                                          print(isSelectedHabit[i]);
                                         }),
                                         isSelected: isSelectedHabit[i],
                                       ),

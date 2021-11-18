@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class DayCard extends StatelessWidget{
   final onTap;
-  final bool isSelected;
+  bool isSelected;
   final String day;
-  const DayCard({Key? key, required this.day, required this.onTap,required this.isSelected}) : super(key: key);
+  DayCard({Key? key, required this.day, required this.onTap,required this.isSelected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
