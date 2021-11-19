@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/presentation/screens/home/description.dart';
 
 class HomeCard extends StatelessWidget {
-  final String habit;
+  final Data data;
 
-  const HomeCard({Key? key, required this.habit}) : super(key: key);
+  const HomeCard({Key? key, required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     const String path = 'assets/icons/';
     return InkWell(
-      onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: DescriptionScreen(title: habit))),
+      onTap: () =>
+          Navigator.push(context, PageTransition(
+              type: PageTransitionType.rightToLeft,
+              child: DescriptionScreen(data: data))),
       splashColor: darkPink,
       highlightColor: darkPink,
       child: Container(
@@ -24,7 +29,7 @@ class HomeCard extends StatelessWidget {
                 color: const Color(0xCC210741).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(52)),
             child: Image.asset(
-              path + habit + '.png',
+              path + data.habit! + '.png',
               filterQuality: FilterQuality.high,
             ),
           ),
@@ -48,3 +53,4 @@ class HomeCard extends StatelessWidget {
     );
   }
 }
+

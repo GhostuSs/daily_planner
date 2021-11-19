@@ -97,7 +97,7 @@ class Review extends StatelessWidget{
 
 class Picture extends StatelessWidget{
   final name;
-  Picture(this.name);
+  const Picture(this.name);
   @override
   Widget build(BuildContext context) {
     return Padding(

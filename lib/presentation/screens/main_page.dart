@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPage extends State<MainPage>{
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -24,13 +24,13 @@ class _MainPage extends State<MainPage>{
             builder:(context){
               switch(_selectedIndex){
                 case 0: {
-                  return new HabitsScreen();
+                  return const HabitsScreen();
                 }
                 case 1:{
-                  return new TodayScreen();
+                  return TodayScreen();
                 }
                 default: {
-                  return new SettingsScreen();
+                  return const SettingsScreen();
                 }
               }
             }

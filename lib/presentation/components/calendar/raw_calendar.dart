@@ -25,7 +25,7 @@ class _RawCalendar extends State<RawCalendar>{
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TableCalendar(
         focusedDay: widget.selectedDay,
         firstDay: DateTime(2010),
@@ -106,8 +106,8 @@ class _RawCalendar extends State<RawCalendar>{
         headerStyle: HeaderStyle(
           titleCentered: true,
           formatButtonVisible: false,
-          leftChevronPadding: EdgeInsets.symmetric(vertical: 10),
-          rightChevronPadding: EdgeInsets.symmetric(vertical: 10),
+          leftChevronPadding: const EdgeInsets.symmetric(vertical: 10),
+          rightChevronPadding: const EdgeInsets.symmetric(vertical: 10),
           leftChevronIcon: CustomChevron(direction: Direction.left),
           rightChevronIcon:
           CustomChevron(direction: Direction.right),

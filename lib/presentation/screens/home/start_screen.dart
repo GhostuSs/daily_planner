@@ -163,11 +163,14 @@ class _HabitsScreen extends State<HabitsScreen> {
 }
 
 class PointColumn extends StatelessWidget{
+
   final List data;
   final String searchTag;
   final List<bool> isSelected;
   final int isSelectedIndex;
+
   const PointColumn({Key? key, required this.data,required this.isSelected, required this.searchTag, required this.isSelectedIndex}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Visibility(
@@ -179,7 +182,7 @@ class PointColumn extends StatelessWidget{
             PartOfDayLabel(label: reformatTagToLabel(searchTag)),
             for (int i = 0; i < data.length; i++)
               if (data[i].tag == searchTag)
-                HomeCard(habit: data[i].habit)
+                HomeCard(data: data[i])
           ],
         ));
   }

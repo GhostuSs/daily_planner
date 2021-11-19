@@ -6,10 +6,11 @@ enum Repeating{
 }
 
 class Data{
+  String? name;
   String? habit;
   String? tag;
   Repeating? repeat;
-  Data({this.habit,this.tag,this.repeat});
+  Data({this.name,this.habit,this.tag,this.repeat});
 
   removeData(){
     habit='';

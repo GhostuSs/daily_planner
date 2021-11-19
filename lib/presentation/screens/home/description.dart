@@ -9,8 +9,8 @@ import 'package:sleep_sound/presentation/progress_bar/raw_progressbar.dart';
 import 'package:provider/provider.dart';
 
 class DescriptionScreen extends StatefulWidget {
-  final String title;
-  const DescriptionScreen({Key? key, required this.title}) : super(key: key);
+  final Data data;
+  const DescriptionScreen({Key? key, required this.data}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _DescriptionScreen();
@@ -28,9 +28,9 @@ class _DescriptionScreen extends State<DescriptionScreen> {
     super.initState();
   }
 
-  String reformatHabit(String habit) {
+  String reformatHabit(Data data) {
     String temp = '';
-    switch (habit) {
+    switch (data.habit) {
       case 'excersize':
         {
           temp = 'Excersize';
@@ -81,15 +81,17 @@ class _DescriptionScreen extends State<DescriptionScreen> {
           temp = 'Take a shower';
           break;
         }
+        default:{
+          temp = data.name!;
+        }
     }
     return temp;
   }
   double value = 0.15;
   @override
   Widget build(BuildContext context) {
-    print(selectedEvents);
     return Scaffold(
-        appBar: RawAppBar(title: reformatHabit(widget.title), addBtn: false),
+        appBar: RawAppBar(title: reformatHabit(widget.data), addBtn: false),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Container(
             width: double.infinity,

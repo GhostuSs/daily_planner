@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/src/provider.dart';
+import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/pickup_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
@@ -42,9 +42,10 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
   _onPressed() {
     for (int i = 0; i <15; i++) {
       if (isSelectedHabit[i] == true) {
-        context.read<ListHabits>().listHabits.add(context.read<PickUpHabits>().customHabitData[i]);
+        context.read<ListHabits>().listHabits.add(Data(name: _textFieldController.text,habit:context.read<PickUpHabits>().customHabitData[i].habit,tag: 'morning',repeat: Repeating.daily));
       }
     }
+    print(isSelectedHabit);
     print(context.read<ListHabits>().printList());
     Navigator.pop(context);
   }
@@ -113,7 +114,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
                                       'Pick up an icon and color',
                                     style: TextStyle(

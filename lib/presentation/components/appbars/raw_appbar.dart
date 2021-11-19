@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 
 class RawAppBar extends StatelessWidget implements PreferredSizeWidget{
-  String title;
-  bool addBtn;
-  RawAppBar({Key? key, required this.title,required this.addBtn}) : super(key: key);
+  final String title;
+  final bool addBtn;
+  const RawAppBar({Key? key, required this.title,required this.addBtn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
