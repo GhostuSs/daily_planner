@@ -52,7 +52,7 @@ class _HabitsScreen extends State<HabitsScreen> {
     if (isSelected.contains(true) == false) isSelected[0] = true;
     checkData();
     return Scaffold(
-      appBar: RawAppBar(title: 'home', addBtn: false),
+      appBar: RawAppBar(title: 'home', addBtn: false,backBtn: false,),
       floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
           child: RawButton(

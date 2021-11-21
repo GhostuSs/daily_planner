@@ -40,8 +40,11 @@ class SliderTile extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: height*0.2),
-            widget,
+            SizedBox(height: height*0.05),
+            AspectRatio(
+              aspectRatio: 19/9,
+              child: widget,
+            ),
             SizedBox(height: height*0.08),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -67,7 +70,6 @@ class SliderTile extends StatelessWidget {
                         fontSize: 16,
                         fontFamily: 'JosefinSans-SemiBold',
                         color: textWhite))),
-            SizedBox(height: height * 0.2)
           ],
         ),
       ),

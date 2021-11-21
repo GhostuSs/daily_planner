@@ -1,7 +1,7 @@
 enum Repeating{
   weekly,
   daily,
-  montly,
+  monthly,
   custom
 }
 
@@ -9,8 +9,9 @@ class Data{
   String? name;
   String? habit;
   String? tag;
+  List<DateTime>? dates=List.empty(growable: true);
   Repeating? repeat;
-  Data({this.name,this.habit,this.tag,this.repeat});
+  Data({this.name,this.habit,this.tag,this.repeat,this.dates});
 
   removeData(){
     habit='';
@@ -28,10 +29,12 @@ class Data{
     habit=json['habit'];
     tag=json['tag'];
     repeat=json['repeat'];
+    dates=json['dates'];
   }
   fromJson(Map<String,dynamic> json){
     habit=json['habit'];
     tag=json['tag'];
     repeat=json['repeat'];
+    dates=json['dates'];
   }
 }

@@ -37,14 +37,13 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
         context.read<ListHabits>().listHabits.add(context.read<PickUpHabits>().data[i]);
       }
     }
-    print(context.read<ListHabits>().printList());
-    Navigator.pop(context);
+    Navigator.popAndPushNamed(context,'/');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RawAppBar(title: ' ', addBtn: false),
+      appBar: const RawAppBar(title: ' ', addBtn: false,backBtn: true,),
       floatingActionButton: Container(
         padding: const EdgeInsets.all(20),
         child: DoneButton('DONE', _onPressed, isSelected),

@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sleep_sound/data/data.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/presentation/screens/home/description.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class RawCalendar extends StatefulWidget{
-  RawCalendar({Key? key,required this.selectedDay,required this.focusedDay,required this.selectedEvents}) : super(key: key);
-
+  RawCalendar({Key? key,required this.selectedDay,required this.focusedDay,required this.selectedEvents, required this.repeating}) : super(key: key);
+  final Repeating repeating;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
-  List<DateTime> selectedEvents = [];
+  List<DateTime> selectedEvents;
   @override
   State<StatefulWidget> createState() {
     return _RawCalendar();
@@ -18,12 +19,9 @@ class RawCalendar extends StatefulWidget{
 }
 class _RawCalendar extends State<RawCalendar>{
 
-  List<DateTime> _getEventsfromDay(DateTime date) {
-    return [DateTime.now()];
-  }
-
   @override
   Widget build(BuildContext context) {
+    print(widget.selectedEvents);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TableCalendar(
@@ -36,16 +34,41 @@ class _RawCalendar extends State<RawCalendar>{
         onDaySelected: (DateTime selectDay, DateTime focusDay) {
           setState(() {
             widget.selectedDay = selectDay;
-            widget.focusedDay = focusDay;
           });
-          widget.selectedEvents.contains(widget.selectedDay)
-              ? widget.selectedEvents.remove(widget.selectedDay)
-              : widget.selectedEvents.add(widget.selectedDay);
         },
         selectedDayPredicate: (DateTime date) {
           return isSameDay(widget.selectedDay, date);
         },
-        eventLoader: _getEventsfromDay,
+        eventLoader: (DateTime date){
+          List<DateTime> temp=List.empty(growable: true);
+          switch(widget.repeating) {
+            case Repeating.weekly:
+              {
+                for (int i = 0; i < widget.selectedEvents.length; i++) {
+                  if (date.day == widget.selectedEvents[i].day &&
+                      date.month == widget.selectedEvents[i].month) {
+                    temp.add(widget.selectedEvents[i]);
+                  }
+                }
+                break;
+              }
+            case Repeating.daily:
+              {
+                temp = [DateTime.now()];
+                break;
+              }
+            case Repeating.monthly:
+              {
+                for (int i = 0; i < widget.selectedEvents.length; i++) {
+                  if (date.day == widget.selectedEvents[i].day) {
+                    temp.add(widget.selectedEvents[i]);
+                  }
+                }
+                break;
+              }
+          }
+          return temp;
+        },
         calendarStyle: CalendarStyle(
             outsideDaysVisible: true,
             outsideTextStyle:

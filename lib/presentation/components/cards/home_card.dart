@@ -38,7 +38,7 @@ class HomeCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '0 days/m',
+                quantityOfRepeatings(data),
                 style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.w300,
@@ -51,6 +51,23 @@ class HomeCard extends StatelessWidget {
         ),
       ),
     );
+  }
+  String quantityOfRepeatings(Data data){
+    switch(data.repeat){
+      case Repeating.monthly:{
+        return '${data.dates?.length.toString() ?? '0'} days/m';
+      }
+      case Repeating.weekly:{
+        return  '${data.dates?.length.toString() ?? '0'} days/m';
+      }
+      case Repeating.daily:{
+        return 'Everyday';
+      }
+      default:{
+        return 'Everyday';
+      }
+    }
+
   }
 }
 

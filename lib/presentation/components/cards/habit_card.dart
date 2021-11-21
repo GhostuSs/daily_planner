@@ -22,7 +22,7 @@ class HabitCard extends StatelessWidget{
               border: Border.all(
                   color: isSelected
                   ? Colors.white.withOpacity(0.5)
-                  : Color(0xCC210741).withOpacity(0.8)
+                  : const Color(0xCC210741).withOpacity(0.8)
               )
           ),
           child: Column(

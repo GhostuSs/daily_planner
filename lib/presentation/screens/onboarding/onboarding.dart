@@ -70,13 +70,13 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical:10.0),
+          padding: const EdgeInsets.only(left: 20.0,right: 20.0,top:10.0),
           child: RawButton(
             'continue',
             onPressed
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -120,7 +120,7 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
               )
             ]
         ),
-        SizedBox(height:MediaQuery.of(context).size.height*0.035)
+        SizedBox(height:MediaQuery.of(context).size.height*0.02)
       ],
     );
   }

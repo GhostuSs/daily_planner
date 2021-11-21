@@ -10,19 +10,17 @@ class ProgressBar extends StatelessWidget{
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.75,
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            child: Container(
-              child: LinearProgressIndicator(
-                minHeight: 32,
-                color: const Color(0xCC210741),
-                backgroundColor:
-                const Color(0xCC210741).withOpacity(0.8),
-                valueColor: AlwaysStoppedAnimation<Color>(
-                    const Color(0xFFFEA7AF).withOpacity(0.95)),
-                value: 0.15,
-              ),
+            borderRadius: BorderRadius.all(const Radius.circular(16)),
+            child: LinearProgressIndicator(
+              minHeight: 32,
+              color: const Color(0xCC210741),
+              backgroundColor:
+              const Color(0xCC210741).withOpacity(0.8),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  const Color(0xFFFEA7AF).withOpacity(0.95)),
+              value: value,
             ),
           ),
         ),

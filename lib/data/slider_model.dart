@@ -17,19 +17,19 @@ List<SliderModel> getSlides(){
   slides.add(SliderModel(
       widget: Picture(OnBoardingImages.choose),
       title: 'choose\nthe habits',
-      desc: "Choose the habits you want to track and\nwe'll make sure you won't forget about them"));
+      desc: "Choose the habits you want to track and we'll make sure you won't forget about them"));
   slides.add(SliderModel(
       widget: Review(),
       title: 'Help us to\nimprove the app',
-      desc: 'We constantly monitor feedback and\nlisten to your opinion'));
+      desc: 'We constantly monitor feedback and listen to your opinion'));
   slides.add(SliderModel(
       widget: Picture(OnBoardingImages.customHab),
       title: 'Add custom habits',
-      desc: 'We have a predefined set of habits, but you\ncan always create your own'));
+      desc: 'We have a predefined set of habits, but you can always create your own'));
   slides.add(SliderModel(
       widget: Picture(OnBoardingImages.progress),
       title: 'watch the progress',
-      desc: 'Subscribe to unlock all the features,\njust '+r'$'+'3.99/w '));
+      desc: 'Subscribe to unlock all the features, just '+r'$'+'3.99/w '));
   return slides;
 }
 
@@ -38,59 +38,63 @@ class Review extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-          decoration: BoxDecoration(
-            color: Color(0xFF210741),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Wrap(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+            decoration: BoxDecoration(
+              color: Color(0xFF210741),
               borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10)
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Image.asset(OnBoardingImages.avatar),
                     ),
-                    child: Image.asset(OnBoardingImages.avatar),
-                  ),
-                  Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),)]
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "I so want to cultivate good habits, drink plenty of water, eat fruits and vegetables, and sometimes I even forget to brush my teeth. But with this app I don't forget about anything, incredibly convenient!",
-                style: TextStyle(
-                  color: textWhite.withOpacity(0.9),
-                    fontFamily: 'JosefinSans-Light',
-                    fontSize: 16,
-                    letterSpacing: 1,
-                    
-                    fontWeight: FontWeight.w400
+                    Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),)]
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'By John',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                  color: textWhite.withOpacity(0.5),
-                  fontFamily: 'JosefinSans-Light'
-                ),
-              )
+                const SizedBox(height: 10),
+                Text(
+                  "I so want to cultivate good habits, drink plenty of water, eat fruits and vegetables, and sometimes I even forget to brush my teeth. But with this app I don't forget about anything, incredibly convenient!",
+                  style: TextStyle(
+                      color: textWhite.withOpacity(0.9),
+                      fontFamily: 'JosefinSans-Light',
+                      fontSize: 14,
+                      letterSpacing: 1,
 
-            ],
-          ),
-        )
+                      fontWeight: FontWeight.w400
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'By John',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      color: textWhite.withOpacity(0.5),
+                      fontFamily: 'JosefinSans-Light'
+                  ),
+                )
+
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -103,7 +107,7 @@ class Picture extends StatelessWidget{
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child:AspectRatio(
-            aspectRatio: 2/1.2,
+            aspectRatio: 2/1.1,
             child: Center(child: Image.asset(name),
             )
         ));

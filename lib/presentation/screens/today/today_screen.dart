@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/src/provider.dart';
 import 'package:sleep_sound/data/data.dart';
+import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
@@ -9,7 +11,7 @@ import 'package:sleep_sound/presentation/components/cards/habit_card.dart';
 import 'package:sleep_sound/presentation/components/text_field/raw_textfield.dart';
 
 class TodayScreen extends StatefulWidget{
-
+  const TodayScreen({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _TodayScreen();
@@ -23,9 +25,7 @@ class _TodayScreen extends State<TodayScreen>{
   int daysInMonth=0;
   int today=0;
   List<bool> selectedDate=List.generate(5, (index) => false);
-  List data=[
-    Data(habit: 'fallasleepearly',tag: 'evening',repeat: Repeating.daily)
-  ];
+  List<Data> data=[];
   List wakeUp =[];
   List morning=[];
   List noon = [];
@@ -34,9 +34,9 @@ class _TodayScreen extends State<TodayScreen>{
 
   @override
   initState() {
-    print(DateTime.now());
-    print(data.length);
-    for (int i = 0; i < data.length; i++) {
+    selectedDate[2]=true;
+    data=context.read<ListHabits>().listHabits;
+    for (int i = 0; i < data.length; i++){
       switch (data[i].tag) {
         case 'wakeup':
           {
@@ -134,10 +134,11 @@ class _TodayScreen extends State<TodayScreen>{
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: RawAppBar(
+      return Scaffold(
+      appBar: const RawAppBar(
           title:'today',
-          addBtn: true
+          addBtn: false,
+          backBtn: false,
       ),
       body: Container(
           decoration: const BoxDecoration(
@@ -180,42 +181,53 @@ class _TodayScreen extends State<TodayScreen>{
                   height: 80,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
+                    itemCount: selectedDate.length,
                     itemBuilder: (context,index)=>Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
-                        height: 75,
-                        width: 100,
-                        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                        decoration: BoxDecoration(
-                            color: Color(0xCC210741).withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(16)
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              textDay(index),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: textWhite.withOpacity(0.9),
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: 'JosefinSans-Light',
-                                  fontSize: 14
+                      child: InkWell(
+                        onTap: ()=>setState((){
+                          selectedDate=List.generate(5, (index) => false);
+                          selectedDate[index]=!selectedDate[index];
+                        }),
+                        child: Container(
+                          height: 75,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                          decoration: BoxDecoration(
+                              color: const Color(0xCC210741).withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: selectedDate[index]
+                                    ? Colors.white.withOpacity(0.5)
+                                    : const Color(0xCC210741).withOpacity(0.8)
+                              )
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                textDay(index),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: textWhite.withOpacity(0.9),
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: 'JosefinSans-Light',
+                                    fontSize: 14
+                                ),
                               ),
-                            ),
-                            if(index==1 || index==2 || index==3) SizedBox(height: 17),
-                            Text(
-                              '${DateTime.now().day-2+index} $month',
-                              style: TextStyle(
-                                  color: textWhite.withOpacity(0.5),
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: 'JosefinSans-Light',
-                                  fontSize: 14
-                              ),
-                            )
-                          ],
+                              if(index==1 || index==2 || index==3) const SizedBox(height: 17),
+                              Text(
+                                '${DateTime.now().day-2+index} $month',
+                                style: TextStyle(
+                                    color: textWhite.withOpacity(0.5),
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: 'JosefinSans-Light',
+                                    fontSize: 14
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -326,7 +338,11 @@ class _TodayScreen extends State<TodayScreen>{
             ],
           )
         : Column(
-            children: const [
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height*0.1,
+              )
             ],
           ),
         ),

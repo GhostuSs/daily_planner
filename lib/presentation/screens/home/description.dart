@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sleep_sound/data/data.dart';
-import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
 import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/calendar/raw_calendar.dart';
 import 'package:sleep_sound/presentation/progress_bar/raw_progressbar.dart';
-import 'package:provider/provider.dart';
 
 class DescriptionScreen extends StatefulWidget {
   final Data data;
@@ -20,14 +18,22 @@ class DescriptionScreen extends StatefulWidget {
 class _DescriptionScreen extends State<DescriptionScreen> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
-  late List<DateTime> selectedEvents;
-
+  late double value;
   @override
   initState(){
-    selectedEvents=[];
+    value=countProgress();
     super.initState();
   }
-
+  double countProgress(){
+    int quantities=0;
+    if(widget.data.repeat !=Repeating.daily) {
+      for (int i = 0; i < widget.data.dates!.length; i++) {
+        if(widget.data.dates![i].isBefore(DateTime.now()))quantities++;
+      }
+    }
+    print((widget.data.dates!.length/quantities));
+    return (quantities/widget.data.dates!.length);
+  }
   String reformatHabit(Data data) {
     String temp = '';
     switch (data.habit) {
@@ -87,11 +93,13 @@ class _DescriptionScreen extends State<DescriptionScreen> {
     }
     return temp;
   }
-  double value = 0.15;
+
+
   @override
   Widget build(BuildContext context) {
+    List<DateTime> selectedEvents=widget.data.dates!;
     return Scaffold(
-        appBar: RawAppBar(title: reformatHabit(widget.data), addBtn: false),
+        appBar: RawAppBar(title: reformatHabit(widget.data), addBtn: false,backBtn: true,),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Container(
             width: double.infinity,
@@ -109,8 +117,10 @@ class _DescriptionScreen extends State<DescriptionScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                RawCalendar(selectedDay: selectedDay, focusedDay: focusedDay, selectedEvents: selectedEvents),
-                Row(
+                RawCalendar(selectedDay: selectedDay, focusedDay: focusedDay, selectedEvents: selectedEvents,repeating: widget.data.repeat!),
+                widget.data.repeat==Repeating.daily
+                    ? const Text('')
+                    :Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
@@ -132,7 +142,9 @@ class _DescriptionScreen extends State<DescriptionScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                ProgressBar(value: value)
+                widget.data.repeat==Repeating.daily
+                    ? const Text('')
+                    :ProgressBar(value: value)
               ],
             )));
   }

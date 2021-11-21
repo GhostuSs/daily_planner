@@ -20,7 +20,7 @@ class _SettingsScreen extends State<SettingsScreen>{
       top: false,
         child: Scaffold(
       backgroundColor: textWhite,
-      appBar: RawAppBar(title: 'settings',addBtn: false),
+      appBar: const RawAppBar(title: 'settings',addBtn: false,backBtn: false,),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 40),
         decoration: const BoxDecoration(
@@ -29,10 +29,10 @@ class _SettingsScreen extends State<SettingsScreen>{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            rawCard('Share',(){},Icons.share_outlined),
-            rawCard('Privacy policy',(){},Icons.check_circle),
-            rawCard('Terms of use',(){},Icons.info),
-            rawCard('Support',(){},Icons.help),
+            RawCard(text: 'Share',onPressed: (){},icon:Icons.share_outlined),
+            RawCard(text: 'Privacy policy',onPressed: (){},icon:Icons.check_circle),
+            RawCard(text:'Terms of use',onPressed:(){},icon:Icons.info),
+            RawCard(text:'Support',onPressed:(){},icon:Icons.help),
           ],
         ),
       ),

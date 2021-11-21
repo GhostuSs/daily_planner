@@ -5,11 +5,13 @@ import 'package:sleep_sound/data/resources/color_palette.dart';
 class RawAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final bool addBtn;
-  const RawAppBar({Key? key, required this.title,required this.addBtn}) : super(key: key);
+  final bool backBtn;
+  const RawAppBar({Key? key, required this.title,required this.addBtn, required this.backBtn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: backBtn,
       shape: Border(
           bottom: BorderSide(color: textWhite.withOpacity(0.5), width: 0.5)),
       centerTitle: true,
