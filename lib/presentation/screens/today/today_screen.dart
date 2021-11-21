@@ -25,12 +25,13 @@ class _TodayScreen extends State<TodayScreen>{
   int daysInMonth=0;
   int today=0;
   List<bool> selectedDate=List.generate(5, (index) => false);
+  List<DateTime> days =List.generate(5, (index) => DateTime(DateTime.now().year,1,DateTime.now().day-2+index,1,1,1,1,1));
   List<Data> data=[];
-  List wakeUp =[];
-  List morning=[];
-  List noon = [];
-  List evening=[];
-  List beforeSleep=[];
+  List<Data> wakeUp =[];
+  List<Data> morning=[];
+  List<Data> noon = [];
+  List<Data> evening=[];
+  List<Data> beforeSleep=[];
 
   @override
   initState() {
@@ -253,7 +254,7 @@ class _TodayScreen extends State<TodayScreen>{
                                 ),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit,onTap: (){}, isSelected: false,)
+                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit!,onTap: (){}, isSelected: false,)
                                   ],
                                 )
                               ],
@@ -267,7 +268,7 @@ class _TodayScreen extends State<TodayScreen>{
                               RawTitle(label: 'Morning', onTap: _onTap, textStyle: _textStyle),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit,onTap: (){},isSelected: false)
+                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit!,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -287,7 +288,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit,onTap: (){},isSelected: false)
+                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit!,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -307,7 +308,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit,onTap: (){},isSelected: false)
+                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit!,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -325,7 +326,7 @@ class _TodayScreen extends State<TodayScreen>{
                                   label: 'Before sleep'),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit,onTap: (){},isSelected: false)
+                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit!,onTap: (){},isSelected: false)
                                   ],
                                 )
                               ],
@@ -399,4 +400,17 @@ class RawTitle extends StatelessWidget{
     );
   }
 
+}
+
+bool contain(List<Data> data,List<DateTime> days){
+  bool flag=false;
+  for(int i=0;i<data.length;i++){
+    for(int j=0;i<data[i].dates!.length;j++) {
+      for(int z=0;z<days.length;z++){
+        if(data[i].dates![j].isAtSameMomentAs(days[z]))flag=true;
+        return flag;
+      }
+    }
+  }
+  return flag;
 }
