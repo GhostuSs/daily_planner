@@ -59,7 +59,6 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(periodic(repeating));
     return Scaffold(
       appBar: const RawAppBar(title: ' ', addBtn: false, backBtn: true),
       floatingActionButton: Container(
@@ -377,7 +376,6 @@ class DoneButton extends StatelessWidget {
 }
 
 Repeating periodic(int repeating) {
-  print('input $repeating');
   switch (repeating) {
     case 1:
       {

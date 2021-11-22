@@ -25,47 +25,13 @@ class _TodayScreen extends State<TodayScreen>{
   int daysInMonth=0;
   int today=0;
   List<bool> selectedDate=List.generate(5, (index) => false);
-  List<DateTime> days =List.generate(5, (index) => DateTime(DateTime.now().year,1,DateTime.now().day-2+index,1,1,1,1,1));
+  List<DateTime> days =List.generate(5, (index) => DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day-2+index,0,0,0,0,0));
   List<Data> data=[];
-  List<Data> wakeUp =[];
-  List<Data> morning=[];
-  List<Data> noon = [];
-  List<Data> evening=[];
-  List<Data> beforeSleep=[];
-
   @override
-  initState() {
-    selectedDate[2]=true;
+  initState(){
     data=context.read<ListHabits>().listHabits;
-    for (int i = 0; i < data.length; i++){
-      switch (data[i].tag) {
-        case 'wakeup':
-          {
-            wakeUp.add(data[i]);
-            break;
-          }
-        case 'morning':
-          {
-            morning.add(data[i]);
-            break;
-          }
-        case 'noon':
-          {
-            noon.add(data[i]);
-            break;
-          }
-        case 'evening':
-          {
-            evening.add(data[i]);
-            break;
-          }
-        case 'beforesleep':
-          {
-            beforeSleep.add(data[i]);
-            break;
-          }
-      }
-    }
+    selectedDate[2]=true;
+
     DateTime dateTime = DateTime.now();
     today=dateTime.day;
     switch(dateTime.month){
@@ -133,8 +99,21 @@ class _TodayScreen extends State<TodayScreen>{
     super.initState();
   }
 
+  bool contains(List<Data> data,List<DateTime> days,List<bool> selectedDate,String tag){
+    bool flag=false;
+    for(int i=0;i<data.length;i++){
+      for(int j=0;j<data[i].dates!.length;j++) {
+          if((data[i].dates![j].day==days[selectedDate.indexOf(true)].day || data[i].repeat==Repeating.daily)&&data[i].tag==tag){
+            flag=true;
+        }
+      }
+    }
+    return flag;
+  }
+
   @override
   Widget build(BuildContext context){
+    data=context.read<ListHabits>().listHabits;
       return Scaffold(
       appBar: const RawAppBar(
           title:'today',
@@ -242,7 +221,7 @@ class _TodayScreen extends State<TodayScreen>{
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Visibility(
-                            visible: wakeUp.isNotEmpty,
+                            visible: data.isNotEmpty&&contains(data,days,selectedDate,'wakeup'),
                             child: Column(
                               crossAxisAlignment:
                               CrossAxisAlignment.start,
@@ -254,13 +233,12 @@ class _TodayScreen extends State<TodayScreen>{
                                 ),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<wakeUp.length;i++)HabitCard(habit:wakeUp[i].habit!,onTap: (){}, isSelected: false,)
-                                  ],
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='wakeup')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)  ],
                                 )
                               ],
                             )),
                         Visibility(
-                          visible: morning.isNotEmpty,
+                          visible: data.isNotEmpty&&contains(data,days,selectedDate,'morning'),
                           child: Column(
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
@@ -268,14 +246,15 @@ class _TodayScreen extends State<TodayScreen>{
                               RawTitle(label: 'Morning', onTap: _onTap, textStyle: _textStyle),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<morning.length;i++)HabitCard(habit:morning[i].habit!,onTap: (){},isSelected: false)
+                                  for(int i=0;i<data.length;i++)
+                                    if(data[i].tag=='morning')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
                           ),
                         ),
                         Visibility(
-                          visible: noon.isNotEmpty,
+                          visible: data.isNotEmpty&&contains(data,days,selectedDate,'noon'),
                           child: Column(
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
@@ -288,14 +267,13 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<noon.length;i++)HabitCard(habit:noon[i].habit!,onTap: (){},isSelected: false)
-                                ],
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='noon')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)],
                               )
                             ],
                           ),
                         ),
                         Visibility(
-                          visible: evening.isNotEmpty,
+                          visible: data.isNotEmpty&&contains(data,days,selectedDate,'evening'),
                           child: Column(
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
@@ -308,14 +286,14 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<evening.length;i++)HabitCard(habit:evening[i].habit!,onTap: (){},isSelected: false)
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='evening')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
                           ),
                         ),
                         Visibility(
-                            visible: beforeSleep.isNotEmpty,
+                            visible: data.isNotEmpty&&contains(data,days,selectedDate,'beforesleep'),
                             child: Column(
                               crossAxisAlignment:
                               CrossAxisAlignment.start,
@@ -326,8 +304,8 @@ class _TodayScreen extends State<TodayScreen>{
                                   label: 'Before sleep'),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<beforeSleep.length;i++)HabitCard(habit:beforeSleep[i].habit!,onTap: (){},isSelected: false)
-                                  ],
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='beforesleep')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
+                                     ],
                                 )
                               ],
                             )),
@@ -400,17 +378,4 @@ class RawTitle extends StatelessWidget{
     );
   }
 
-}
-
-bool contain(List<Data> data,List<DateTime> days){
-  bool flag=false;
-  for(int i=0;i<data.length;i++){
-    for(int j=0;i<data[i].dates!.length;j++) {
-      for(int z=0;z<days.length;z++){
-        if(data[i].dates![j].isAtSameMomentAs(days[z]))flag=true;
-        return flag;
-      }
-    }
-  }
-  return flag;
 }
