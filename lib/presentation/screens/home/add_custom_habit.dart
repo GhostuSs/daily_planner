@@ -379,14 +379,17 @@ Repeating periodic(int repeating) {
   switch (repeating) {
     case 1:
       {
+        print(1);
         return Repeating.weekly;
       }
     case 2:
       {
+        print(2);
         return Repeating.monthly;
       }
     default:
       {
+        print(3);
         return Repeating.daily;
       }
   }

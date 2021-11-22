@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sleep_sound/data/data.dart';
 
 class HabitCard extends StatelessWidget{
   final String imagePath='assets/icons/';
   final onTap;
   bool isSelected;
-  final String habit;
-  HabitCard({Key? key, required this.habit, required this.onTap,required this.isSelected}) : super(key: key);
+  final Data data;
+  HabitCard({Key? key, required this.onTap,required this.isSelected, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,10 +29,10 @@ class HabitCard extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(imagePath+habit+'.png',scale: 0.9,filterQuality: FilterQuality.high),
+              Image.asset(imagePath+data.habit!+'.png',scale: 0.9,filterQuality: FilterQuality.high),
               const SizedBox(height: 10),
               Text(
-                  reformatHabit(habit),
+                  reformatHabit(data),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.9),
@@ -47,9 +48,9 @@ class HabitCard extends StatelessWidget{
     );
   }
 
-  String reformatHabit(String habit){
+  String reformatHabit(Data data){
     String temp='';
-    switch(habit){
+    switch(data.habit){
       case 'excersize':{
         temp='Excersize';
         break;
@@ -89,6 +90,9 @@ class HabitCard extends StatelessWidget{
       case 'takeashower':{
         temp='Take a shower';
         break;
+      }
+      default:{
+        temp=data.name ?? 'Unknown';
       }
     }
     return temp;

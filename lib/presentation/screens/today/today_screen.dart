@@ -233,7 +233,7 @@ class _TodayScreen extends State<TodayScreen>{
                                 ),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<data.length;i++)if(data[i].tag=='wakeup')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)  ],
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='wakeup')HabitCard(data:data[i],onTap: (){},isSelected: false)  ],
                                 )
                               ],
                             )),
@@ -247,7 +247,7 @@ class _TodayScreen extends State<TodayScreen>{
                               Wrap(
                                 children: [
                                   for(int i=0;i<data.length;i++)
-                                    if(data[i].tag=='morning')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
+                                    if(data[i].tag=='morning')HabitCard(data:data[i],onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -267,7 +267,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<data.length;i++)if(data[i].tag=='noon')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)],
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='noon')HabitCard(data:data[i],onTap: (){},isSelected: false)],
                               )
                             ],
                           ),
@@ -286,7 +286,7 @@ class _TodayScreen extends State<TodayScreen>{
                               ),
                               Wrap(
                                 children: [
-                                  for(int i=0;i<data.length;i++)if(data[i].tag=='evening')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
+                                  for(int i=0;i<data.length;i++)if(data[i].tag=='evening')HabitCard(data:data[i],onTap: (){},isSelected: false)
                                 ],
                               )
                             ],
@@ -304,7 +304,7 @@ class _TodayScreen extends State<TodayScreen>{
                                   label: 'Before sleep'),
                                 Wrap(
                                   children: [
-                                    for(int i=0;i<data.length;i++)if(data[i].tag=='beforesleep')HabitCard(habit:data[i].habit!,onTap: (){},isSelected: false)
+                                    for(int i=0;i<data.length;i++)if(data[i].tag=='beforesleep')HabitCard(data:data[i],onTap: (){},isSelected: false)
                                      ],
                                 )
                               ],

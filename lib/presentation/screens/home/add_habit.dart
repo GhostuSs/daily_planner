@@ -97,7 +97,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 0; i < 3; i++)
                                           HabitCard(
-                                            habit: context.read<PickUpHabits>().data[i].habit!,
+                                            data: context.read<PickUpHabits>().data[i],
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
@@ -123,7 +123,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 3; i < 6; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit!,
+                                          data: context.read<PickUpHabits>().data[i],
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -150,7 +150,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 6; i <= 8; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit!,
+                                          data: context.read<PickUpHabits>().data[i],
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -177,7 +177,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     children: [
                                       for (int i = 9; i <= 11; i++)
                                         HabitCard(
-                                          habit: context.read<PickUpHabits>().data[i].habit!,
+                                          data: context.read<PickUpHabits>().data[i],
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
@@ -202,7 +202,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       children: [
                                         for (int i = 12; i <= 13; i++)
                                           HabitCard(
-                                            habit: context.read<PickUpHabits>().data[i].habit!,
+                                            data: context.read<PickUpHabits>().data[i],
                                             onTap: () => setState(() {
                                               isSelected[i] = !isSelected[i];
                                             }),
