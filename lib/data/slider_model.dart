@@ -29,7 +29,7 @@ List<SliderModel> getSlides(){
   slides.add(SliderModel(
       widget: Picture(OnBoardingImages.progress),
       title: 'watch the progress',
-      desc: 'Subscribe to unlock all the features, just '+r'$'+'3.99/w '));
+      desc: 'Subscribe to unlock all the features, just '+r'$'+'3.99/week '));
   return slides;
 }
 
@@ -37,63 +37,58 @@ class Review extends StatelessWidget{
   const Review({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Wrap(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-            decoration: BoxDecoration(
-              color: Color(0xFF210741),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+      padding: EdgeInsets.only(left: 20,right: 20),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+        decoration: BoxDecoration(
+          color: Color(0xFF210741),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Container(
+                  width: height*0.049,
+                  height: height*0.049,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Image.asset(OnBoardingImages.avatar,filterQuality: FilterQuality.high,),
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Image.asset(OnBoardingImages.avatar),
-                    ),
-                    Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),)]
-                    ),
-                  ],
+                    mainAxisSize: MainAxisSize.min,
+                    children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),)]
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  "I so want to cultivate good habits, drink plenty of water, eat fruits and vegetables, and sometimes I even forget to brush my teeth. But with this app I don't forget about anything, incredibly convenient!",
-                  style: TextStyle(
-                      color: textWhite.withOpacity(0.9),
-                      fontFamily: 'JosefinSans-Light',
-                      fontSize: 14,
-                      letterSpacing: 1,
-
-                      fontWeight: FontWeight.w400
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'By John',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      color: textWhite.withOpacity(0.5),
-                      fontFamily: 'JosefinSans-Light'
-                  ),
-                )
-
               ],
             ),
-          )
-        ],
+            SizedBox(height: 30),
+            Text(
+              "I so want to cultivate good habits, drink plenty of water, eat fruits and vegetables, and sometimes I even forget to brush my teeth. But with this app I don't forget about anything, incredibly convenient!",
+              style: TextStyle(
+                  color: textWhite.withOpacity(0.9),
+                  fontFamily: 'JosefinSans-Light',
+                  fontSize: height*0.02,
+                  letterSpacing: 1,
+
+                  fontWeight: FontWeight.w400
+              ),
+            ),
+            Text(
+              'By John',
+              style: TextStyle(
+                  fontSize: height*0.022,
+                  fontWeight: FontWeight.w300,
+                  color: textWhite.withOpacity(0.5),
+                  fontFamily: 'JosefinSans-Light'
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -106,10 +101,6 @@ class Picture extends StatelessWidget{
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child:AspectRatio(
-            aspectRatio: 2/1.1,
-            child: Center(child: Image.asset(name),
-            )
-        ));
+        child:Center(child: Image.asset(name,scale: 1.5,)));
   }
 }

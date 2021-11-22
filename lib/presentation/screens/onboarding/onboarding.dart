@@ -27,6 +27,8 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    var width=MediaQuery.of(context).size.width;
+    var height=MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: basePurple,
       body: Container(
@@ -39,6 +41,7 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
             onPageChanged: (val)=>setState((){currentIndex=val;}),
             itemBuilder: (context,index){
               return SliderTile(
+                index:index,
                 flag: index ==slides.length-1 ? true : false,
                 widget: slides[index].widget,
                 title: slides[index].title,
@@ -48,8 +51,8 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
         ),
       ),
       floatingActionButton: currentIndex==slides.length-1
-          ?floatingBtm('Continue',()=>Navigator.pushNamed(context, '/'))
-          :floatingBtm('Continue',onContinue),
+          ?floatingBtm('Continue',()=>Navigator.pushNamed(context, '/'),width,height)
+          :floatingBtm('Continue',onContinue,width,height),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -65,50 +68,25 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
   void onStartFree(){
     Navigator.pushNamed(context, '/');
   }
-  Widget floatingBtm(String text,onPressed){
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0,right: 20.0,top:10.0),
-          child: RawButton(
-            'continue',
-            onPressed
+  Widget floatingBtm(String text,onPressed,width,height){
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: height*0.07),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding:EdgeInsets.only(left: 20.0,right: 20.0,top:10.0,bottom: height*0.013),
+            child: RawButton(
+                'continue',
+                onPressed
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: const Text(
-                  'Privacy Policy',
-                  style: TextStyle(
-                      color: Color(0xFF554469),
-                      fontFamily: 'JosefinSans-Light',
-                      fontSize: 12.0
-                  ),
-                ),
-                onTap: ()=>{},
-              ),
-              const SizedBox(width: 40),
-              InkWell(
-                child: const Text(
-                  'Restore',
-                  style: TextStyle(
-                      color: Color(0xFF554469),
-                      fontFamily: 'JosefinSans-Light',
-                      fontSize: 12.0
-                  ),
-                ),
-                onTap: ()=>{},
-              ),
-              const SizedBox(width: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: InkWell(
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
                   child: const Text(
-                    'Terms of Use',
+                    'Privacy Policy',
                     style: TextStyle(
                         color: Color(0xFF554469),
                         fontFamily: 'JosefinSans-Light',
@@ -117,11 +95,37 @@ class _OnBoardingScreen extends State<OnBoardingScreen> {
                   ),
                   onTap: ()=>{},
                 ),
-              )
-            ]
-        ),
-        SizedBox(height:MediaQuery.of(context).size.height*0.02)
-      ],
+                const SizedBox(width: 40),
+                InkWell(
+                  child: const Text(
+                    'Restore',
+                    style: TextStyle(
+                        color: Color(0xFF554469),
+                        fontFamily: 'JosefinSans-Light',
+                        fontSize: 12.0
+                    ),
+                  ),
+                  onTap: ()=>{},
+                ),
+                const SizedBox(width: 40),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InkWell(
+                    child: const Text(
+                      'Terms of Use',
+                      style: TextStyle(
+                          color: Color(0xFF554469),
+                          fontFamily: 'JosefinSans-Light',
+                          fontSize: 12.0
+                      ),
+                    ),
+                    onTap: ()=>{},
+                  ),
+                )
+              ]
+          ),
+        ],
+      ),
     );
   }
 }

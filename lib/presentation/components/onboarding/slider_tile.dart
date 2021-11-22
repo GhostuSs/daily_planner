@@ -4,24 +4,27 @@ import 'package:sleep_sound/data/resources/color_palette.dart';
 
 class SliderTile extends StatelessWidget {
   final String  title, desc;
-  Widget widget;
+  final int index;
+  final Widget widget;
   final bool flag;
-  SliderTile(
+  const SliderTile(
       {Key? key, required this.widget,
         required this.title,
         required this.desc,
-        required this.flag}) : super(key: key);
-
+        required this.flag, required this.index}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    return Stack(children: [
+    print(height);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
       Align(
           alignment: Alignment.topLeft,
           child: flag
               ? Padding(
             padding: EdgeInsets.only(
-                left: 40, top: height * 0.065),
+                left: 20, top: height*0.06),
             child: InkWell(
               onTap: ()=>Navigator.pushNamed(context, '/'),
               child: const SizedBox(
@@ -30,44 +33,45 @@ class SliderTile extends StatelessWidget {
                 child: Icon(
                   CupertinoIcons.clear,
                   color: Color(0xFF554469),
-                  size: 24.0,
+                  size: 30.0,
                 ),
               ),
             ),
           )
-              : const Text('')),
+              : Padding(
+            padding: EdgeInsets.only(top: height*0.09),
+            child: Text(''),
+          )),
+          SizedBox(height:height*0.01),
+      height>700 ? SizedBox(height: height*0.1,):Text(''),
       Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: height*0.05),
-            AspectRatio(
-              aspectRatio: 19/9,
-              child: widget,
-            ),
-            SizedBox(height: height*0.08),
+            flag ? Text('') :SizedBox(height: height*0.03),
+            widget,
+            SizedBox(height: height*0.035),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 title.toUpperCase(),
                 textAlign: TextAlign.center,
                 maxLines: 2,
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 30,
+                    fontSize: height*0.034,
                     fontFamily: 'JosefinSans-Bold',
                     color: textWhite),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height*0.014),
                 child: Text(desc,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.fade,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: height*0.02,
                         fontFamily: 'JosefinSans-SemiBold',
                         color: textWhite))),
           ],
