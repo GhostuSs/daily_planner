@@ -30,7 +30,26 @@ const RawCard({required this.text, required this.onPressed, required this.icon})
                 children: [
                   Padding(
                       padding: const EdgeInsets.only(left: 20,right: 15),
-                      child: Icon(
+                      child: icon==Icons.share_rounded
+                          ? Container(
+                        padding: EdgeInsets.all(1),
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: textWhite.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(3)
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(
+                            icon,
+                            color: Color(0xCC210741).withOpacity(0.8),
+                            size: 22,
+                          )],
+                        ),
+                      )
+                          : Icon(
                         icon,
                         color: textWhite.withOpacity(0.9),
                         size: 24,
