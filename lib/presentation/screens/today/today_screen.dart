@@ -117,7 +117,7 @@ class _TodayScreen extends State<TodayScreen>{
       return Scaffold(
       appBar: const RawAppBar(
           title:'today',
-          addBtn: false,
+          addBtn: true,
           backBtn: false,
       ),
       body: Container(

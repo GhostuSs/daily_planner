@@ -9,14 +9,17 @@ class HabitCard extends StatelessWidget{
   HabitCard({Key? key, required this.onTap,required this.isSelected, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    print(width);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       child: InkWell(
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          width: 116,
-          height: 104,
+          width: width*0.28,
+          height: height*0.12,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: const Color(0xCC210741).withOpacity(0.8),
@@ -30,7 +33,7 @@ class HabitCard extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(imagePath+data.habit!+'.png',scale: 0.9,filterQuality: FilterQuality.high),
-              const SizedBox(height: 10),
+              SizedBox(height: height*0.01),
               Text(
                   reformatHabit(data),
                   textAlign: TextAlign.center,
@@ -38,7 +41,7 @@ class HabitCard extends StatelessWidget{
                       color: Colors.white.withOpacity(0.9),
                       fontWeight: FontWeight.w300,
                       fontFamily: 'JosefinSans-Thin',
-                      fontSize: 14.0
+                      fontSize: height*0.016
                   )
               )
             ],

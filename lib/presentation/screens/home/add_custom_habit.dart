@@ -59,13 +59,48 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const RawAppBar(title: ' ', addBtn: false, backBtn: true),
-      floatingActionButton: Container(
-        padding: const EdgeInsets.all(20),
-        child: DoneButton('DONE', _onPressed, isSelectedHabit),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 4,top:10),
+          child: InkWell(
+            child:Row(children: [Text(
+              'Cancel',
+              style: TextStyle(
+                  fontSize:width*0.04,
+                  color: Colors.white.withOpacity(0.9),
+                  fontFamily: 'JosefinSans-Regular',
+                  fontWeight: FontWeight.w300,
+                  letterSpacing: -0.3
+              ),
+            )],),
+            onTap: ()=>Navigator.popAndPushNamed(context, '/'),
+          ),
+        ),
+        shape: Border(
+            bottom: BorderSide(color: textWhite.withOpacity(0.5), width: 0.5)),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: basePurple,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+                splashColor: basePurple,
+                highlightColor: basePurple,
+                onPressed: (){},
+                icon: const Icon(
+                  Icons.add_circle_outline_outlined,
+                  color: textWhite,
+                  size: 24,
+                )
+
+            ),
+          )
+        ],
+      ),//const RawAppBar(title: '', addBtn: false, backBtn: true),
       body: Container(
         decoration: const BoxDecoration(gradient: customGradient),
         child: Column(
@@ -82,7 +117,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: width*0.036, vertical: 10),
               child: Row(
                 children: [
                   Text(
@@ -115,11 +150,10 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                       Visibility(
                           visible: context.read<PickUpHabits>().data.isNotEmpty,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  const SizedBox(width: 20),
+                                  SizedBox(width: MediaQuery.of(context).size.width*0.048),
                                   Text(
                                     'Pick up an icon and color',
                                     style: TextStyle(
@@ -132,8 +166,8 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: width*0.04, vertical: width*0.024),
                                 child: Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   alignment: WrapAlignment.center,
@@ -148,7 +182,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                                           isSelectedHabit = List.generate(
                                               15, (index) => false);
                                           isSelectedHabit[i] =
-                                              !isSelectedHabit[i];
+                                          !isSelectedHabit[i];
                                         }),
                                         isSelected: isSelectedHabit[i],
                                       ),
@@ -259,7 +293,10 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                               )
                             ],
                           )),
-                      const SizedBox(height: 150)
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        child: DoneButton('DONE', _onPressed, isSelectedHabit)),
+                      const SizedBox(height:100)
                     ],
                   )
                 ],
@@ -312,12 +349,13 @@ class CustomHabitIcon extends StatelessWidget {
       {required this.isSelectedTime, required this.text, this.onTap});
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: width*0.036, horizontal: width*0.048),
           decoration: BoxDecoration(
               color: const Color(0xCC210741).withOpacity(0.8),
               border: Border.all(
@@ -328,7 +366,7 @@ class CustomHabitIcon extends StatelessWidget {
           child: Text(text,
               style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
-                  fontSize: 18,
+                  fontSize: width*0.0435,
                   fontWeight: FontWeight.w300,
                   fontFamily: 'JosefinSans-Light')),
         ),

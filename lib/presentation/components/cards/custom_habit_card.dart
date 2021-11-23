@@ -8,16 +8,19 @@ class CustomHabitCard extends StatelessWidget{
   const CustomHabitCard({Key? key, required this.habit, required this.onTap,required this.isSelected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
+    print('width $width');
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: width>350 ? width*0.015 : width*0.01,vertical: width*0.015),
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          width: 64,
-          height: 64,
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          width: height>895? height*0.07 : height*0.08,
+          height: height>895? height*0.07 : height*0.08,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
               color: const Color(0xCC210741).withOpacity(0.8),
               border: Border.all(
                   color: isSelected

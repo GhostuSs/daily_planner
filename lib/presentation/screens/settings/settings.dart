@@ -29,7 +29,7 @@ class _SettingsScreen extends State<SettingsScreen>{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RawCard(text: 'Share',onPressed: (){},icon:Icons.share_outlined),
+            RawCard(text: 'Share',onPressed: (){},icon:Icons.share_rounded),
             RawCard(text: 'Privacy policy',onPressed: (){},icon:Icons.check_circle),
             RawCard(text:'Terms of use',onPressed:(){},icon:Icons.info),
             RawCard(text:'Support',onPressed:(){},icon:Icons.help),

@@ -42,13 +42,10 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const RawAppBar(title: ' ', addBtn: false,backBtn: true,),
-      floatingActionButton: Container(
-        padding: const EdgeInsets.all(20),
-        child: DoneButton('DONE', _onPressed, isSelected),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Container(
         decoration: const BoxDecoration(gradient: customGradient),
         child: context.read<PickUpHabits>().data.isNotEmpty
@@ -90,20 +87,21 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                       onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                       label: 'Wake up',
                                     ),
-                                    Wrap(
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      alignment: WrapAlignment.center,
-                                      children: [
-                                        for (int i = 0; i < 3; i++)
-                                          HabitCard(
-                                            data: context.read<PickUpHabits>().data[i],
-                                            onTap: () => setState(() {
-                                              isSelected[i] = !isSelected[i];
-                                            }),
-                                            isSelected: isSelected[i],
-                                          )
-                                      ],
+                                    Container(
+                                      height: height*0.15,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          for (int i = 0; i < 3; i++)
+                                            HabitCard(
+                                              data: context.read<PickUpHabits>().data[i],
+                                              onTap: () => setState(() {
+                                                isSelected[i] = !isSelected[i];
+                                              }),
+                                              isSelected: isSelected[i],
+                                            )
+                                        ],
+                                      ),
                                     )
                                   ],
                                 )),
@@ -116,20 +114,19 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     label: 'Morning',
                                     onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                   ),
-                                  Wrap(
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    alignment: WrapAlignment.center,
-                                    children: [
-                                      for (int i = 3; i < 6; i++)
+                                  Container(
+                                    height: height*0.15,
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [for (int i = 3; i < 6; i++)
                                         HabitCard(
                                           data: context.read<PickUpHabits>().data[i],
                                           onTap: () => setState(() {
                                             isSelected[i] = !isSelected[i];
                                           }),
                                           isSelected: isSelected[i],
-                                        )
-                                    ],
+                                        )],
+                                    ),
                                   )
                                 ],
                               ),
@@ -143,20 +140,21 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     label: 'Noon',
                                     onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                   ),
-                                  Wrap(
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    alignment: WrapAlignment.center,
-                                    children: [
-                                      for (int i = 6; i <= 8; i++)
-                                        HabitCard(
-                                          data: context.read<PickUpHabits>().data[i],
-                                          onTap: () => setState(() {
-                                            isSelected[i] = !isSelected[i];
-                                          }),
-                                          isSelected: isSelected[i],
-                                        )
-                                    ],
+                                  Container(
+                                    height: height*0.15,
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        for (int i = 6; i <= 8; i++)
+                                          HabitCard(
+                                            data: context.read<PickUpHabits>().data[i],
+                                            onTap: () => setState(() {
+                                              isSelected[i] = !isSelected[i];
+                                            }),
+                                            isSelected: isSelected[i],
+                                          )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -170,20 +168,21 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())),
                                     label: 'Evening',
                                   ),
-                                  Wrap(
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    alignment: WrapAlignment.center,
-                                    children: [
-                                      for (int i = 9; i <= 11; i++)
-                                        HabitCard(
-                                          data: context.read<PickUpHabits>().data[i],
-                                          onTap: () => setState(() {
-                                            isSelected[i] = !isSelected[i];
-                                          }),
-                                          isSelected: isSelected[i],
-                                        )
-                                    ],
+                                  Container(
+                                    height: height*0.15,
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        for (int i = 9; i <= 11; i++)
+                                          HabitCard(
+                                            data: context.read<PickUpHabits>().data[i],
+                                            onTap: () => setState(() {
+                                              isSelected[i] = !isSelected[i];
+                                            }),
+                                            isSelected: isSelected[i],
+                                          )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -195,23 +194,30 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                   children: [
                                     RawRow(
                                         onTap: ()=>Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,child: const AddCustomHabitScreen())), label: 'Before sleep'),
-                                    Wrap(
-                                      alignment: WrapAlignment.center,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: [
-                                        for (int i = 12; i <= 13; i++)
-                                          HabitCard(
-                                            data: context.read<PickUpHabits>().data[i],
-                                            onTap: () => setState(() {
-                                              isSelected[i] = !isSelected[i];
-                                            }),
-                                            isSelected: isSelected[i],
-                                          )
-                                      ],
+                                    Container(
+                                      height: height*0.15,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          for (int i = 12; i <= 13; i++)
+                                            HabitCard(
+                                              data: context.read<PickUpHabits>().data[i],
+                                              onTap: () => setState(() {
+                                                isSelected[i] = !isSelected[i];
+                                              }),
+                                              isSelected: isSelected[i],
+                                            )
+                                        ],
+                                      ),
                                     )
                                   ],
                                 )),
+                            SizedBox(height: 10),
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              child: DoneButton('DONE', _onPressed, isSelected),
+                            ),
+                            const SizedBox(height:100)
                           ],
                         )
                       ],
@@ -219,7 +225,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   )
                 ],
               )
-            : const Text('is empty'),
+            : const Text(''),
       ),
     );
   }
