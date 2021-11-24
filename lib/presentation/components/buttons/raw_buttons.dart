@@ -6,7 +6,7 @@ class RawButton extends StatelessWidget{
   final String text;
   final onPressed;
 
-  RawButton(this.text,this.onPressed);
+  const RawButton(this.text,this.onPressed);
   @override
   Widget build(BuildContext context) {
     return Container(

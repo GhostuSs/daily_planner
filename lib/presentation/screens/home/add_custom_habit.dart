@@ -6,7 +6,6 @@ import 'package:sleep_sound/data/list_habits.dart';
 import 'package:sleep_sound/data/pickup_habits.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
 import 'package:sleep_sound/data/resources/decorations.dart';
-import 'package:sleep_sound/presentation/components/appbars/raw_appbar.dart';
 import 'package:sleep_sound/presentation/components/cards/custom_habit_card.dart';
 import 'package:sleep_sound/presentation/components/cards/day_card.dart';
 import 'package:sleep_sound/presentation/components/cards/month_days_card.dart';
@@ -64,7 +63,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: Padding(
-          padding: EdgeInsets.only(left: 4,top:10),
+          padding: const EdgeInsets.only(left: 4,top:10),
           child: InkWell(
             child:Row(children: [Text(
               'Cancel',
@@ -214,7 +213,7 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: const EdgeInsets.all(20),
                                 child: Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   alignment: WrapAlignment.center,
@@ -262,8 +261,8 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                                         MediaQuery.of(context).size.width * 0.9,
                                     child: CupertinoSlidingSegmentedControl(
                                         groupValue: repeating,
-                                        backgroundColor: Color(0xFF99210741),
-                                        thumbColor: Color(0xFF290753),
+                                        backgroundColor: const Color(0xFF99210741),
+                                        thumbColor: const Color(0xFF290753),
                                         children: <int, Widget>{
                                           0: Tab(
                                               label: 'Daily',
@@ -344,13 +343,13 @@ class CustomHabitIcon extends StatelessWidget {
   final bool isSelectedTime;
   final String text;
   final onTap;
-  CustomHabitIcon(
+  const CustomHabitIcon(
       {required this.isSelectedTime, required this.text, this.onTap});
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -379,7 +378,7 @@ class DoneButton extends StatelessWidget {
   final List<bool> isSelected;
   final onPressed;
 
-  DoneButton(this.text, this.onPressed, this.isSelected);
+  const DoneButton(this.text, this.onPressed, this.isSelected);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -416,17 +415,14 @@ Repeating periodic(int repeating) {
   switch (repeating) {
     case 1:
       {
-        print(1);
         return Repeating.weekly;
       }
     case 2:
       {
-        print(2);
         return Repeating.monthly;
       }
     default:
       {
-        print(3);
         return Repeating.daily;
       }
   }
@@ -461,7 +457,7 @@ class Tab extends StatelessWidget {
   final String label;
   final int index;
   final isSelectedIndex;
-  Tab(
+  const Tab(
       {Key? key,
       required this.label,
       required this.index,
@@ -590,7 +586,6 @@ class _WidgetGenerator extends State<WidgetGenerator> {
                   isSelected: widget.isSelected[i],
                   onTap: () => setState(() {
                         widget.isSelected[i] = true;
-                        List<DateTime> temp=List.empty(growable: true);
                         if(widget.isSelected[i]){
                           if(widget.inputData.dates==null){
                             widget.inputData.dates!.add(DateTime.now());

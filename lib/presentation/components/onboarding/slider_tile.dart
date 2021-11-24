@@ -15,7 +15,6 @@ class SliderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    print(height);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,18 +39,18 @@ class SliderTile extends StatelessWidget {
           )
               : Padding(
             padding: EdgeInsets.only(top: height*0.09),
-            child: Text(''),
+            child: const Text(''),
           )),
           SizedBox(height:height*0.01),
-      height>700 ? SizedBox(height: height*0.1,):Text(''),
+      height>700 ? SizedBox(height: height*0.1,):const Text(''),
       Center(
         child: Column(
           children: [
-            flag ? Text('') :SizedBox(height: height*0.03),
+            flag ? const Text('') :SizedBox(height: height*0.03),
             widget,
             SizedBox(height: height*0.035),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 title.toUpperCase(),
                 textAlign: TextAlign.center,

@@ -30,7 +30,7 @@ class RawAppBar extends StatelessWidget implements PreferredSizeWidget{
           child: IconButton(
               splashColor: basePurple,
               highlightColor: basePurple,
-              onPressed: ()=>Navigator.push(context, PageTransition(child: AddHabitScreen(), type: PageTransitionType.rightToLeft)),
+              onPressed: ()=>Navigator.push(context, PageTransition(child: const AddHabitScreen(), type: PageTransitionType.rightToLeft)),
               icon: const Icon(
                 Icons.add_circle_outline_outlined,
                 color: textWhite,

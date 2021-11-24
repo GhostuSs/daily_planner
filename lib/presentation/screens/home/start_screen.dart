@@ -52,7 +52,7 @@ class _HabitsScreen extends State<HabitsScreen> {
     if (isSelected.contains(true) == false) isSelected[0] = true;
     checkData();
     return Scaffold(
-      appBar: RawAppBar(title: 'home', addBtn: false,backBtn: false,),
+      appBar: const RawAppBar(title: 'home', addBtn: false,backBtn: false,),
       floatingActionButton: checkData()
           ?Container()
       :Padding(
@@ -167,7 +167,7 @@ class _HabitsScreen extends State<HabitsScreen> {
         )
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             EmptyDataWidget(),
           ],
         )

@@ -21,7 +21,6 @@ class _RawCalendar extends State<RawCalendar>{
 
   @override
   Widget build(BuildContext context) {
-    print(widget.selectedEvents);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TableCalendar(
@@ -66,6 +65,9 @@ class _RawCalendar extends State<RawCalendar>{
                 }
                 break;
               }
+            case Repeating.custom:
+              // TODO: Handle this case.
+              break;
           }
           return temp;
         },

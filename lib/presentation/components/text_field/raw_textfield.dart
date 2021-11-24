@@ -5,7 +5,7 @@ class RawTextField extends StatefulWidget {
   final String _hint;
   final IconData? _icon;
   final TextEditingController _textFieldController;
-  RawTextField(
+  const RawTextField(
       Key? key,
       this._hint,
       this._icon,

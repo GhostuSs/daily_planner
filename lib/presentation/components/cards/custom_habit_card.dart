@@ -10,13 +10,12 @@ class CustomHabitCard extends StatelessWidget{
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
-    print('width $width');
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width>350 ? width*0.015 : width*0.01,vertical: width*0.015),
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           width: height>895? height*0.07 : height*0.08,
           height: height>895? height*0.07 : height*0.08,
           decoration: BoxDecoration(

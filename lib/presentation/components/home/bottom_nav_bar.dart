@@ -32,7 +32,7 @@ CupertinoTabBar btmNavBar(int selectedIndex) {
 
 class HomeButton extends StatelessWidget{
   final Color color;
-  HomeButton(this.color);
+  const HomeButton(this.color);
   @override
   build(BuildContext context) {
     return Center(

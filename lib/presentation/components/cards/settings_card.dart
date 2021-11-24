@@ -32,7 +32,7 @@ const RawCard({required this.text, required this.onPressed, required this.icon})
                       padding: const EdgeInsets.only(left: 20,right: 15),
                       child: icon==Icons.share_rounded
                           ? Container(
-                        padding: EdgeInsets.all(1),
+                        padding: const EdgeInsets.all(1),
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(

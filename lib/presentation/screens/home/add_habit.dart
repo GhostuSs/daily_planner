@@ -43,7 +43,6 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const RawAppBar(title: ' ', addBtn: false,backBtn: true,),
       body: Container(

@@ -31,7 +31,6 @@ class _DescriptionScreen extends State<DescriptionScreen> {
         if(widget.data.dates![i].isBefore(DateTime.now()))quantities++;
       }
     }
-    print((widget.data.dates!.length/quantities));
     return (quantities/widget.data.dates!.length);
   }
   String reformatHabit(Data data) {
@@ -103,7 +102,7 @@ class _DescriptionScreen extends State<DescriptionScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: Container(
             width: double.infinity,
-            decoration: BoxDecoration(gradient: customGradient),
+            decoration: const BoxDecoration(gradient: customGradient),
             child: Column(
               children: [
                 Padding(
@@ -125,7 +124,7 @@ class _DescriptionScreen extends State<DescriptionScreen> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Text(
                         'Progression',
                         style: TextStyle(
@@ -154,7 +153,7 @@ enum Direction { left, right }
 
 class CustomChevron extends StatelessWidget {
   final Direction direction;
-  CustomChevron({required this.direction});
+  const CustomChevron({required this.direction});
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
