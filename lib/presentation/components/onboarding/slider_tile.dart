@@ -71,7 +71,7 @@ class SliderTile extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: height*0.02,
+                        fontSize: height*0.03,
                         fontFamily: 'JosefinSans-SemiBold',
                         color: textWhite))),
           ],

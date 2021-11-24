@@ -9,21 +9,21 @@ CupertinoTabBar btmNavBar(int selectedIndex) {
   return CupertinoTabBar(
     backgroundColor: Color(0xFF10082D),
     activeColor: textWhite,
-    inactiveColor: basePurple,
+    inactiveColor: textWhite.withOpacity(0.4),
     currentIndex: selectedIndex,
     border: Border(top: BorderSide(width: 2,color: textWhite.withOpacity(0.25))),
     items: [
       BottomNavigationBarItem(
-          icon: HomeButton(textWhite.withOpacity(0.2)),
+          icon: HomeButton(textWhite.withOpacity(0.4)),
           label: 'home'.toUpperCase(),
           activeIcon: HomeButton(textWhite)
       ),
       BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today_outlined,color: textWhite.withOpacity(0.2),size: 25),
+          icon: Icon(Icons.calendar_today_outlined,color: textWhite.withOpacity(0.4),size: 25),
           label: 'today'.toUpperCase(),
           activeIcon: Icon(Icons.calendar_today_outlined,color: textWhite,size: 25)),
       BottomNavigationBarItem(
-          icon: Icon(Icons.settings_outlined,color: textWhite.withOpacity(0.2),size: 25),
+          icon: Icon(Icons.settings_outlined,color: textWhite.withOpacity(0.4),size: 25),
           label: 'Settings'.toUpperCase(),
           activeIcon: Icon(Icons.settings_outlined,color: textWhite,size: 25)),
     ],

@@ -212,12 +212,12 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                                     )
                                   ],
                                 )),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               padding: const EdgeInsets.all(20),
                               child: DoneButton('DONE', _onPressed, isSelected),
                             ),
-                            const SizedBox(height:100)
+                            const SizedBox(height:10)
                           ],
                         )
                       ],

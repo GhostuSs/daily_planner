@@ -53,11 +53,13 @@ class _HabitsScreen extends State<HabitsScreen> {
     checkData();
     return Scaffold(
       appBar: RawAppBar(title: 'home', addBtn: false,backBtn: false,),
-      floatingActionButton: Padding(
+      floatingActionButton: checkData()
+          ?Container()
+      :Padding(
           padding: const EdgeInsets.all(20),
           child: RawButton(
               'add a new habit',
-              () => Navigator.push(
+                  () => Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
@@ -150,12 +152,24 @@ class _HabitsScreen extends State<HabitsScreen> {
                   )
                 ],
               ),
-            )
+            ),
+            Padding(
+                padding: const EdgeInsets.all(20),
+                child: RawButton(
+                    'add a new habit',
+                        () => Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const AddHabitScreen(),
+                        ))))
           ],
         )
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [EmptyDataWidget()],
+          children: [
+            EmptyDataWidget(),
+          ],
         )
       ),
     );

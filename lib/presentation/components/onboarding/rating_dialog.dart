@@ -23,14 +23,16 @@ class RateMyApp extends StatelessWidget {
             children: [
               Container(
                 decoration:
-                    BoxDecoration(
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                child: Image.asset(
-                  OnBoardingImages.appIcon,
-                  width: 64,
-                  filterQuality: FilterQuality.high,
-                  height: 64,
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.asset(
+                    OnBoardingImages.appIcon,
+                    width: 64,
+                    filterQuality: FilterQuality.high,
+                    height: 64,
+                  ),
                 ),
               ),
               const Padding(
@@ -51,7 +53,9 @@ class RateMyApp extends StatelessWidget {
             textAlign: TextAlign.center,
             overflow: TextOverflow.fade,
             style: TextStyle(
-                fontFamily: 'JosefinSans-Light', fontSize: 11, color: textWhite),
+                fontFamily: 'JosefinSans-Light',
+                fontSize: 11,
+                color: textWhite),
           ),
           actions: [
             CupertinoDialogAction(
@@ -69,28 +73,33 @@ class RateMyApp extends StatelessWidget {
                     color: CupertinoColors.systemBlue,
                   )),
             )),
-            CupertinoDialogAction(
-                isDefaultAction: false,
-                child: TextButton(
-                  child: const Text(
-                    'Cancel',
-                    style: _textStyle,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )),
-            CupertinoDialogAction(
-                isDefaultAction: true,
-                child: TextButton(
-                  child: const Text(
-                    'Submit',
-                    style: _textStyle,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CupertinoButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      '        Cancel',
+                      style: _textStyle,
+                    )),
+                Container(
+                  width: 0.3,
+                  color: Colors.white.withOpacity(0.3),
+                  height: 50,
+                ),
+                CupertinoButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Submit        ',
+                      style: _textStyle,
+                    ))
+              ],
+            )
           ],
         ));
   }

@@ -294,9 +294,8 @@ class _AddCustomHabitScreenState extends State<AddCustomHabitScreen> {
                             ],
                           )),
                       Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.only(right:20,left:20,bottom:20,top: 10),
                         child: DoneButton('DONE', _onPressed, isSelectedHabit)),
-                      const SizedBox(height:100)
                     ],
                   )
                 ],

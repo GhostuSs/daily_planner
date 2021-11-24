@@ -62,7 +62,8 @@ class Review extends StatelessWidget{
                 ),
                 Row(
                     mainAxisSize: MainAxisSize.min,
-                    children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),)]
+                    children:[for(int i=0;i<6;i++)const Padding(padding: EdgeInsets.symmetric(horizontal: 1),child: Icon(CupertinoIcons.star_fill,color: Color(0xCCFFCC00)),),
+                    SizedBox(width: 20)]
                 ),
               ],
             ),

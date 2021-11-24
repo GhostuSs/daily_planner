@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sleep_sound/data/resources/color_palette.dart';
+import 'package:sleep_sound/presentation/screens/home/add_habit.dart';
 
 class RawAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String title;
@@ -28,7 +30,7 @@ class RawAppBar extends StatelessWidget implements PreferredSizeWidget{
           child: IconButton(
               splashColor: basePurple,
               highlightColor: basePurple,
-              onPressed: (){},
+              onPressed: ()=>Navigator.push(context, PageTransition(child: AddHabitScreen(), type: PageTransitionType.rightToLeft)),
               icon: const Icon(
                 Icons.add_circle_outline_outlined,
                 color: textWhite,
